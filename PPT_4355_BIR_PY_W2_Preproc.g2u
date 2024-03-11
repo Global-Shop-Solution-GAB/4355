@@ -1,0 +1,2494 @@
+Program.Sub.ScreenSU.Start
+Gui.Form..Create
+Gui.Form..Caption("W-2 Printing Options")
+Gui.Form..Size(4560,6270)
+Gui.Form..MinX(0)
+Gui.Form..MinY(0)
+Gui.Form..Position(0,0)
+Gui.Form..BackColor(-2147483633)
+Gui.Form..MousePointer(0)
+Gui.Form..Event(UnLoad,Unload)
+Gui.Form..Sizeable(False)
+Gui.Form.cmd1ok.Create(Button)
+Gui.Form.cmd1ok.Size(1335,375)
+Gui.Form.cmd1ok.Position(105,5235)
+Gui.Form.cmd1ok.Caption("Print")
+Gui.Form.cmd1ok.Event(Click,cmd1ok_click)
+Gui.Form.copies.Create(Frame)
+Gui.Form.copies.Size(4095,3615)
+Gui.Form.copies.Position(90,90)
+Gui.Form.copies.Caption("Select copies to print")
+Gui.Form.chk1Employer.Create(CheckBox)
+Gui.Form.chk1Employer.Size(1560,360)
+Gui.Form.chk1Employer.Position(240,2610)
+Gui.Form.chk1Employer.Parent("copies")
+Gui.Form.chk1Employer.Caption("Employer")
+Gui.Form.chk1Employer.BackColor(-2147483633)
+Gui.Form.chk1Employer.ForeColor(-2147483630)
+Gui.Form.chk1Employer.Event(Click,Disable_Perf_Controls)
+Gui.Form.chk1Filing.Create(CheckBox)
+Gui.Form.chk1Filing.Size(2985,360)
+Gui.Form.chk1Filing.Position(240,3030)
+Gui.Form.chk1Filing.Parent("copies")
+Gui.Form.chk1Filing.Caption("Employee Filing Instructions")
+Gui.Form.chk1Filing.BackColor(-2147483633)
+Gui.Form.chk1Filing.ForeColor(-2147483630)
+Gui.Form.chk1Filing.Visible(True)
+Gui.Form.chk1Filing.Event(Click,Disable_Perf_Controls)
+Gui.Form.chk1Employee.Create(CheckBox)
+Gui.Form.chk1Employee.Size(1560,360)
+Gui.Form.chk1Employee.Position(240,2145)
+Gui.Form.chk1Employee.Parent("copies")
+Gui.Form.chk1Employee.Caption("Employee")
+Gui.Form.chk1Employee.BackColor(-2147483633)
+Gui.Form.chk1Employee.ForeColor(-2147483630)
+Gui.Form.chk1Employee.Event(Click,Disable_Perf_Controls)
+Gui.Form.chk1Federal.Create(CheckBox)
+Gui.Form.chk1Federal.Size(1560,360)
+Gui.Form.chk1Federal.Position(240,1665)
+Gui.Form.chk1Federal.Parent("copies")
+Gui.Form.chk1Federal.Caption("Federal")
+Gui.Form.chk1Federal.BackColor(-2147483633)
+Gui.Form.chk1Federal.ForeColor(-2147483630)
+Gui.Form.chk1Federal.Event(Click,Disable_Perf_Controls)
+Gui.Form.chk1State2.Create(CheckBox)
+Gui.Form.chk1State2.Size(1560,360)
+Gui.Form.chk1State2.Position(240,1215)
+Gui.Form.chk1State2.Parent("copies")
+Gui.Form.chk1State2.Caption("State 2")
+Gui.Form.chk1State2.BackColor(-2147483633)
+Gui.Form.chk1State2.ForeColor(-2147483630)
+Gui.Form.chk1State2.Event(Click,Disable_Perf_Controls)
+Gui.Form.chk1State1.Create(CheckBox)
+Gui.Form.chk1State1.Size(1560,360)
+Gui.Form.chk1State1.Position(240,720)
+Gui.Form.chk1State1.Parent("copies")
+Gui.Form.chk1State1.Caption("State 1")
+Gui.Form.chk1State1.BackColor(-2147483633)
+Gui.Form.chk1State1.ForeColor(-2147483630)
+Gui.Form.chk1State1.Event(Click,Disable_Perf_Controls)
+Gui.Form.chk1AllCopies.Create(CheckBox)
+Gui.Form.chk1AllCopies.Size(1560,360)
+Gui.Form.chk1AllCopies.Position(240,270)
+Gui.Form.chk1AllCopies.Parent("copies")
+Gui.Form.chk1AllCopies.Caption("All Copies")
+Gui.Form.chk1AllCopies.Event(Click,chk1allcopies_click)
+Gui.Form.pForms.Create(Frame)
+Gui.Form.pForms.Size(4095,1230)
+Gui.Form.pForms.Position(105,3885)
+Gui.Form.pForms.Caption("Perforated Form Options")
+Gui.Form.chkFedEmp.Create(CheckBox)
+Gui.Form.chkFedEmp.Size(3435,360)
+Gui.Form.chkFedEmp.Position(210,345)
+Gui.Form.chkFedEmp.Parent("pForms")
+Gui.Form.chkFedEmp.Caption("Federal and Employee")
+Gui.Form.chkFedEmp.Event(Click,chkFedEmp_Click)
+Gui.Form.chkStates1and2.Create(CheckBox)
+Gui.Form.chkStates1and2.Size(2685,360)
+Gui.Form.chkStates1and2.Position(210,750)
+Gui.Form.chkStates1and2.Parent("pForms")
+Gui.Form.chkStates1and2.Caption("State 1 and State 2")
+Gui.Form.chkStates1and2.Event(Click,chkStates1and2_Click)
+Gui.F_Progress..Create
+Gui.F_Progress..Caption("Printing")
+Gui.F_Progress..Size(8370,1395)
+Gui.F_Progress..MinX(0)
+Gui.F_Progress..MinY(0)
+Gui.F_Progress..Position(0,0)
+Gui.F_Progress..BackColor(-2147483633)
+Gui.F_Progress..MousePointer(0)
+Gui.F_Progress.progressBar1.Create(ProgressBar)
+Gui.F_Progress.progressBar1.Size(7950,390)
+Gui.F_Progress.progressBar1.Position(60,300)
+Gui.F_Progress.lblProgress.Create(Label,"",True,1935,255,0,45,90,True,0,"Arial",8,-986896,0)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Variable.UDT.uEmp.Define("Employee",String,"Employee")
+Variable.UDT.uEmp.Define("SSN",String,"SSN")
+Variable.UDT.uEmp.Define("Last_Name",String,"Last_Name")
+Variable.UDT.uEmp.Define("First_Name",String,"First_Name")
+Variable.UDT.uEmp.Define("Middle_Init",String,"Middle_Init")
+Variable.UDT.uEmp.Define("Street",String,"Street")
+Variable.UDT.uEmp.Define("City",String,"City")
+Variable.UDT.uEmp.Define("State",String,"State")
+Variable.UDT.uEmp.Define("Zip",String,"Zip")
+Variable.UDT.uEmp.Define("Fed_Wages",String,"Fed_Wages")
+Variable.UDT.uEmp.Define("Fed_Withholding",String,"Fed_Withholding")
+Variable.UDT.uEmp.Define("FICA_Wages",String,"FICA_Wages")
+Variable.UDT.uEmp.Define("FICA_Withholding",String,"FICA_Withholding")
+Variable.UDT.uEmp.Define("Medi_Wages",String,"Medi_Wages")
+Variable.UDT.uEmp.Define("Medi_Withholding",String,"Medi_Withholding")
+Variable.UDT.uEmp.Define("DEP_Care",String,"DEP_Care")
+Variable.UDT.uEmp.Define("Statutory_Emp",String,"Statutory_Emp")
+Variable.UDT.uEmp.Define("Retirement_Plan",String,"Retirement_Plan")
+Variable.UDT.uEmp.Define("Third_Party_Sick",String,"Third_Party_Sick")
+Variable.uGlobal.uEmp.Declare("uEmp")
+
+Variable.UDT.uHDR.Define("Federal_ID",String,"Federal_ID")
+Variable.UDT.uHDR.Define("Company_Name",String,"Company_Name")
+Variable.UDT.uHDR.Define("Delivery_Addr",String,"Delivery_Addr")
+Variable.UDT.uHDR.Define("Location_Addr",String,"Location_Addr")
+Variable.UDT.uHDR.Define("Address_City",String,"Address_City")
+Variable.UDT.uHDR.Define("Address_State",String,"Address_State")
+Variable.UDT.uHDR.Define("Address_Zip",String,"Address_Zip")
+Variable.uGlobal.uHDR.Declare("uHDR")
+
+Variable.UDT.uGTotals.Define("Fed_Wages",String,"Fed_Wages")
+Variable.UDT.uGTotals.Define("Fed_Withholding",String,"Fed_Withholding")
+Variable.UDT.uGTotals.Define("Fica_Wages",String,"Fica_Wages")
+Variable.UDT.uGTotals.Define("Fica_Withholding",String,"Fica_Withholding")
+Variable.UDT.uGTotals.Define("Medi_Wages",String,"Medi_Wages")
+Variable.UDT.uGTotals.Define("Medi_Withholding",String,"Medi_Withholding")
+Variable.UDT.uGTotals.Define("Dep_care",String,"Dep_care")
+Variable.uGlobal.uGTotals.Declare("uGTotals")
+
+Variable.UDT.uGStateTotals.Define("Withholding",float,"Withholding")
+Variable.UDT.uGStateTotals.Define("Wages",float,"Wages")
+Variable.uGlobal.uGStateTotals.Declare("uGStateTotals")
+
+Variable.UDT.uStateLocal.Define("Employee",String,"Employee")
+Variable.UDT.uStateLocal.Define("St_Seq",String,"St_Seq")
+Variable.UDT.uStateLocal.Define("St_State",String,"St_State")
+Variable.UDT.uStateLocal.Define("St_Tax_ID",String,"St_Tax_ID")
+Variable.UDT.uStateLocal.Define("St_Wages",String,"St_Wages")
+Variable.UDT.uStateLocal.Define("St_Withholding",String,"St_Withholding")
+Variable.UDT.uStateLocal.Define("Local_Code",String,"Local_Code")
+Variable.UDT.uStateLocal.Define("L_Seq",String,"L_Seq")
+Variable.UDT.uStateLocal.Define("L_State",String,"L_State")
+Variable.UDT.uStateLocal.Define("L_Wages",String,"L_Wages")
+Variable.UDT.uStateLocal.Define("L_Withholding",String,"L_Withholding")
+Variable.uGlobal.uStateLocal.Declare("uStateLocal")
+
+Variable.UDT.uStateTotal.Define("State",String,"")
+Variable.UDT.uStateTotal.Define("Tax_ID",String,"")
+Variable.UDT.uStateTotal.Define("Wages",Float,"Wages")
+Variable.UDT.uStateTotal.Define("Withholding",Float,"Withholding")
+Variable.uGlobal.uStateTotal.Declare("uStateTotal")
+
+Variable.UDT.uStateTotalCpy.Define("State",String,"")
+Variable.UDT.uStateTotalCpy.Define("Tax_ID",String,"")
+Variable.UDT.uStateTotalCpy.Define("Wages",Float,"Wages")
+Variable.UDT.uStateTotalCpy.Define("Withholding",Float,"Withholding")
+Variable.uGlobal.uStateTotalCpy.Declare("uStateTotalCpy")
+
+Variable.UDT.uLocalTotal.Define("State",String,"")
+Variable.UDT.uLocalTotal.Define("Wages",Float,"Wages")
+Variable.UDT.uLocalTotal.Define("Withholding",Float,"Withholding")
+Variable.UDT.uLocalTotal.Define("Local_Code",String,"")
+Variable.uGlobal.uLocalTotal.Declare("uLocalTotal")
+
+Variable.UDT.uLocalTotalCpy.Define("State",String,"")
+Variable.UDT.uLocalTotalCpy.Define("Wages",Float,"Wages")
+Variable.UDT.uLocalTotalCpy.Define("Withholding",Float,"Withholding")
+Variable.UDT.uLocalTotalCpy.Define("Local_Code",String,"")
+Variable.uGlobal.uLocalTotalCpy.Declare("uLocalTotalCpy")
+
+Variable.UDT.uEmpTotal.Define("Fed_Wages",Float,"Fed_Wages")
+Variable.UDT.uEmpTotal.Define("Fed_Withholding",Float,"Fed_Withholding")
+Variable.UDT.uEmpTotal.Define("Fica_Wages",Float,"Fica_Wages")
+Variable.UDT.uEmpTotal.Define("Medi_Wages",Float,"Medi_Wages")
+Variable.UDT.uEmpTotal.Define("Medi_Withholding",Float,"Medi_Withholding")
+Variable.UDT.uEmpTotal.Define("Dep_Care",Float,"Dep_Care")
+Variable.UDT.uEmpTotal.Define("State",String,"")
+Variable.uGlobal.uEmpTotal.Declare("uEmpTotal")
+
+Variable.UDT.uEmpTotalCpy.Define("Fed_Wages",Float,"Fed_Wages")
+Variable.UDT.uEmpTotalCpy.Define("Fed_Withholding",Float,"Fed_Withholding")
+Variable.UDT.uEmpTotalCpy.Define("Fica_Wages",Float,"Fica_Wages")
+Variable.UDT.uEmpTotalCpy.Define("Medi_Wages",Float,"Medi_Wages")
+Variable.UDT.uEmpTotalCpy.Define("Medi_Withholding",Float,"Medi_Withholding")
+Variable.UDT.uEmpTotalCpy.Define("Dep_Care",Float,"Dep_Care")
+Variable.UDT.uEmpTotalCpy.Define("State",String,"")
+Variable.uGlobal.uEmpTotalCpy.Declare("uEmpTotalCpy")
+
+Variable.UDT.uBox12.Define("Box",String,"Box")
+Variable.UDT.uBox12.Define("Irs_Code",String,"Irs_Code")
+Variable.UDT.uBox12.Define("State",String,"State")
+Variable.UDT.uBox12.Define("Amount_12",Float,"Amount_12")
+Variable.UDT.uBox12.Define("Box_Desc",String,"Box_Desc")
+Variable.uGlobal.uBox12.Declare("uBox12")
+
+Variable.UDT.uBox12Total.Define("Box",String,"Box")
+Variable.UDT.uBox12Total.Define("Irs_Code",String,"Irs_Code")
+Variable.UDT.uBox12Total.Define("State",String,"State")
+Variable.UDT.uBox12Total.Define("Amount_12",Float,"Amount_12")
+Variable.UDT.uBox12Total.Define("Box_Desc",String,"Box_Desc")
+Variable.uGlobal.uBox12Total.Declare("uBox12Total")
+
+Variable.UDT.uBox12TotalCpy.Define("Box",String,"Box")
+Variable.UDT.uBox12TotalCpy.Define("Irs_Code",String,"Irs_Code")
+Variable.UDT.uBox12TotalCpy.Define("State",String,"State")
+Variable.UDT.uBox12TotalCpy.Define("Amount_12",Float,"Amount_12")
+Variable.UDT.uBox12TotalCpy.Define("Box_Desc",String,"Box_Desc")
+Variable.uGlobal.uBox12TotalCpy.Declare("uBox12TotalCpy")
+
+Variable.UDT.uDistinctState.Define("State",String,"State")
+Variable.uGlobal.uDistinctState.Declare("uDistinctState")
+
+Variable.Global.iRunid.Declare(Long)
+Variable.Global.iLogID.Declare(Long)
+Variable.Global.iYr.Declare(Long)
+Variable.Global.iRec.Declare(Long)
+Variable.Global.sFileMerge.Declare(String)
+Variable.Global.sFileDirRet.Declare(String)
+Variable.Global.sTempDir.Declare(String)
+Variable.Global.sPrev.Declare(String)
+Variable.Global.sCurr.Declare(String)
+Variable.Global.iCounter.Declare(Long)
+Variable.Global.bGrandTotal.Declare(Boolean,False)
+Variable.Global.bCompanyTotal.Declare(Boolean)
+Variable.GLobal.sEmployerFileMerge.Declare(String)
+Variable.Global.bEmployerCopy.Declare(Boolean,False)
+Variable.Global.bNoData.Declare(Boolean,False)
+Variable.Global.sGFQP.Declare(String)
+Variable.Global.sEmployee.Declare(String)
+Variable.Global.DuplicateEmployee.Declare(Boolean,False)
+Variable.Global.iProg.Declare(Long)
+Variable.Global.GrandTotalPageNum.Declare(Long)
+Variable.Global.LocalGSSTempDir.Declare(String)
+Variable.Global.Array_Copy_Name.Declare(String)
+Variable.Global.Current_Copy.Declare(string)
+Variable.Global.P_Forms.Declare(Boolean)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+F.ODBC.connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.puser,V.Ambient.PPass,3000)
+'F.ODBC.connection!conx.OpenConnection("DRIVER=Pervasive ODBC Client Interface;ServerName=gss2k16bugscurr;dbq=Global621")
+
+'launched from hook 48260
+'Getting passed variables from BSI007
+V.Global.iRunid.Set(V.Passed.BSI007-RUN-ID)
+V.Global.iLogID.Set(V.Passed.BSI007-LOG-ID)
+V.Global.iYr.Set(V.Passed.WS-W2-YEAR)
+
+'Test params
+'V.Global.iRunid.Set(36)
+'V.Global.iLogID.Set(48)
+'V.Global.iYr.Set(2016)
+
+V.Local.bRet.Declare(Boolean,False)
+F.Intrinsic.Control.If(V.Ambient.IsGab2,=,False)
+	F.Intrinsic.UI.Msgbox("Runtime Version on Hook 48260 must be set to 2.00","Invalid Runtime Version")
+	F.Intrinsic.Control.CallSub(Unload)
+F.Intrinsic.Control.Endif
+
+'Show printing options
+Gui.Form..Show
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+Program.Sub.Load_Rst.Start
+F.Intrinsic.Control.SetErrorHandler("Load_Rst_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'Loading from the Y Table
+V.Local.sSQL.Declare(String)
+V.Local.iRet.Declare(Long)
+V.uGlobal.uEmp.Redim(-1,-1)
+V.uGlobal.uHDR.Redim(-1,-1)
+
+'Checks if file is open.
+F.Intrinsic.Control.CallSub(Check_If_Open)
+
+'Create temp folder directory
+F.Intrinsic.Control.CallSub(check_temp_folder)
+
+'pulling in employee info
+'Data needed for field E.Employee's first name, Middle initial, last name, Suffix, F.Employee's Address and Zip
+F.Intrinsic.String.Build("select Employee, Ssn, Last_Name, First_Name, Middle_Init, Street, City, State, Zip, Fed_Wages, Fed_Withholding, Fica_Wages, Fica_Withholding, Medi_Wages, Medi_Withholding, Dep_care, Statutory_Emp, Retirement_Plan, Third_Party_Sick from Y_PY_W2_EMP Where RunId = '{0}' and Logid = '{1}' Order by Employee",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordSetRO("rst",V.Local.sSQL)
+F.Data.DataTable.CreateFromSQL("dtEmp","conx",V.Local.sSQL,True)
+F.ODBC.conx!rst.Close
+
+'Pulling header from Y_PY_W2_HDR
+'Data need for field B.Employer EIN, C.name, address, City, state, zip
+F.Intrinsic.String.Build("Select Federal_ID, Company_Name, Delivery_Addr, Location_Addr, Address_City, Address_State, Address_Zip from Y_PY_W2_HDR Where Runid = '{0}' and Logid = '{1}'",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordSetRO("rst",V.Local.sSQL)
+F.Data.DataTable.CreateFromSQL("dtHDR","conx",V.Local.sSQL,True)
+F.ODBC.conx!rst.Close
+
+'Pulling in state and local taxes
+F.Intrinsic.String.Build("Select a.Employee, a.Seq as St_Seq, a.State as St_State, a.Tax_ID as St_Tax_ID, a.Wages as St_Wages, a.Withholding as St_Withholding, b.Seq as L_Seq, b.State as L_State, b.Wages as L_Wages, b.Withholding as L_Withholding, Local_Code From Y_PY_W2_ST as a Left Outer join Y_PY_W2_LOC as b On  a.Runid = B.Runid and a.Employee = b.Employee and a.State = b.State where  a.Runid = '{0}' order by a.Seq, b.Seq",V.Global.iRunid,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordSetRO("rst",V.Local.sSQL)
+F.Data.DataTable.CreateFromSQL("dtStateLocal","conx",V.Local.sSQL,True)
+F.ODBC.conx!rst.Close
+
+'Pulling in local taxes
+F.Intrinsic.String.Build("Select Employee, Seq, State, Local_Code, Wages, Withholding From Y_PY_W2_LOC WHERE RUNID = '{0}'",V.Global.iRunid,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordSetRO("rst",V.Local.sSQL)
+F.Data.DataTable.CreateFromSQL("dtLocal","conx",V.Local.sSQL,True)
+F.ODBC.conx!rst.Close
+
+'Pulling in state taxes
+F.Intrinsic.String.Build("Select Employee, Seq, State, Tax_ID, Wages, Withholding from Y_PY_W2_ST WHERE RUNID = '{0}'",V.Global.iRunid,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordSetRO("rst",V.Local.sSQL)
+F.Data.DataTable.CreateFromSQL("dtState","conx",V.Local.sSQL,True)
+F.ODBC.conx!rst.Close
+
+'Pulling in box 12 and 14 records
+F.Intrinsic.String.Build("Select Employee, Box, Seq, IRS_Code, Amount_12, Box_Desc, Amount_14 From Y_PY_W2_ADDL Where Runid = '{0}' order by Seq",V.Global.iRunid,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordSetRO("rst",V.Local.sSQL)
+F.Data.DataTable.CreateFromSQL("dtAddl","conx",V.Local.sSQL,True)
+F.ODBC.conx!rst.Close
+
+F.Intrinsic.Math.Add(V.DataTable.dtEmp.RowCount,V.DataTable.dtAddl.RowCount,V.DataTable.dtHdr.RowCount,V.DataTable.dtStateLocal.RowCount,V.Local.iRet)
+F.Intrinsic.Control.If(V.Local.iRet,=,0)
+	F.Intrinsic.UI.Msgbox("No Data Found","Unable to print")
+	F.Intrinsic.Control.CallSub(unload)
+F.Intrinsic.Control.EndIf
+
+'Checking for duplicate employee info
+F.Intrinsic.Control.CallSub(duplicate_employee_check)
+'Sum up Duplicate Employee ID Data
+F.Intrinsic.Control.CallSub(ReCalculate_Employee_Data)
+'Re-build data tables
+F.Intrinsic.Control.CallSub(Re_Build_DataTables)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Load_Rst_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Load_Rst.End
+
+Program.Sub.ReCalculate_Employee_Data.Start
+V.Local.i.Declare(Long)
+V.Local.ii.Declare(Long)
+V.Local.iii.Declare(Long)
+V.Local.iv.Declare(Long)
+V.Local.Len.Declare(Long)
+V.Local.sIDs.Declare(String)
+V.Local.sFlt.Declare(string)
+V.Local.sFltII.Declare(String)
+V.Local.sFltIII.Declare(string)
+V.Local.sEmpInfo.Declare(String)
+V.Local.sOrd.Declare(String)
+V.Local.sRows.Declare(String)
+V.Local.sRow.Declare(String)
+V.Local.bRet.Declare(Boolean,False)
+'dtEmp fields
+V.Local.Employee.Declare(String)
+V.Local.SSN.Declare(String)
+V.Local.Last_Name.Declare(String)
+V.Local.First_Name.Declare(String)
+V.Local.Middle_Init.Declare(String)
+V.Local.Street.Declare(String)
+V.Local.City.Declare(String)
+V.Local.State.Declare(String)
+V.Local.Zip.Declare(String)
+V.Local.fFedWage.Declare(Float)
+V.Local.fFedWith.Declare(Float)
+V.Local.fFicaWage.Declare(Float)
+V.Local.fFicaWith.Declare(Float)
+V.Local.fMedWage.Declare(Float)
+V.Local.fMedWith.Declare(Float)
+V.Local.fDepCare.Declare(Float)
+V.Local.Statutory_Emp.Declare(String)
+V.Local.Retirement_Plan.Declare(String)
+V.Local.Third_Party_Sick.Declare(String)
+'dtAddl fields
+V.Local.irs_code_array.Declare(string)
+V.Local.Box.Declare(string)
+V.Local.fAmount_12.Declare(Float)
+V.Local.fAmount_14.Declare(Float)
+V.Local.Box_Desc.Declare(String)
+V.Local.A_Seq.Declare(Long)
+V.Local.array_seq.Declare(string)
+'dtStateLocal
+V.Local.St_Seq.Declare(Long)
+V.Local.St_State.Declare(String)
+V.Local.St_Tax_ID.Declare(String)
+V.Local.St_Wages.Declare(Float)
+V.Local.St_Withholding.Declare(Float)
+V.Local.L_Seq.Declare(Long)
+V.Local.L_State.Declare(String)
+V.Local.L_Wages.Declare(Float)
+V.Local.L_Withholding.Declare(Float)
+V.Local.Local_Code.Declare(String)
+
+V.Local.State_Code_Array.Declare(String)
+V.Local.Local_Code_Array.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sArray.Declare(String)
+V.Local.iArray.Declare(Long)
+V.Local.sCountFilter.Declare(String)
+
+V.Local.Duplicate_St_Lc.Declare(String)
+'This sub will re-calculate employee W-2 so that there will no longer be
+' one page per Employee ID IF an  employee has more than one employee ID
+F.Intrinsic.Control.If(V.Global.DuplicateEmployee,=,True)
+	F.Intrinsic.Control.If(V.DataTable.dtDuplicateEmps.Exists,=,True)
+		'Loop through each employee, getting each of thier ID's and totalling those records up.
+'***GET EMPLOYEE HEADER****
+		F.Intrinsic.Control.For(V.Local.i,0,V.DataTable.dtDuplicateEmps.RowCount--,1)
+			F.Intrinsic.String.Split(V.DataTable.dtDuplicateEmps(V.Local.i).EMPIDS!FieldValString,"@!@",V.Local.sIDs)
+			'For each ID for this employee, string build a filter 
+			V.Local.sFlt.Set("")
+			V.Local.sRows.Set("")
+			F.Intrinsic.Control.For(V.Local.ii,V.Local.sIDs.LBound,V.Local.sIDs.UBound,1)
+				F.Intrinsic.String.Build("{0} OR Employee = '{1}'",V.Local.sFlt,V.Local.sIDs(V.Local.ii),V.Local.sFlt)
+			F.Intrinsic.Control.Next(V.Local.ii)
+			F.Intrinsic.Math.Sub(V.Local.sFlt.Length,4,V.Local.Len)
+
+			V.Local.sFlt.Set(V.Local.sFlt.RightV.Local.Len)
+			F.Data.DataView.Create("dtEmp","dvEmp")
+			Function.Data.DataView.SetFilter("dtEmp","dvEmp",V.Local.sFlt)
+			F.Intrinsic.Control.If(V.DataView.dtEmp!dvEmp.RowCount--,>,0)			
+				'Reset vals
+				V.Local.Employee.Set("")
+				V.Local.SSN.Set("")
+				V.Local.Last_Name.Set("")
+				V.Local.First_Name.Set("")
+				V.Local.Middle_Init.Set("")
+				V.Local.Street.Set("")
+				V.Local.City.Set("")
+				V.Local.State.Set("")
+				V.Local.Zip.Set("")
+				V.Local.fFedWage.Set(0)
+				V.Local.fFedWith.Set(0)
+				V.Local.fFicaWage.Set(0)
+				V.Local.fFicaWith.Set(0)
+				V.Local.fMedWage.Set(0)
+				V.Local.fMedWith.Set(0)
+				V.Local.fDepCare.Set(0)				
+				V.Local.Statutory_Emp.Set("")
+				V.Local.Retirement_Plan.Set("")
+				V.Local.Third_Party_Sick.Set("")
+
+				'Use greatest employee ID.
+				F.Intrinsic.String.Join(V.Local.sIDs,"*!*",V.Local.sArray)
+				F.Intrinsic.String.Split(V.Local.sArray,"*!*",V.Local.iArray)
+				F.Intrinsic.Variable.ArrayMax(V.Local.iArray,V.Local.Employee)
+				F.Intrinsic.String.LPad(V.Local.Employee,"0",5,V.Local.Employee)
+
+				'Get employee info from highest employee ID.
+				F.Data.DataView.Create("dtEmp","dvEmp2")
+				F.Intrinsic.String.Build("Employee = '{0}'",V.Local.Employee,V.Local.sEmpInfo)
+				F.Data.DataView.SetFilter("dtEmp","dvEmp2",V.Local.sEmpInfo)
+
+				V.Local.SSN.Set(V.DataView.dtEmp!dvEmp(0).SSN!FieldValString)
+				V.Local.Last_Name.Set(V.DataView.dtEmp!dvEmp2(0).Last_Name!FieldValString)
+				V.Local.First_Name.Set(V.DataView.dtEmp!dvEmp2(0).First_Name!FieldValString)
+				V.Local.Middle_Init.Set(V.DataView.dtEmp!dvEmp2(0).Middle_Init!FieldValString)
+				V.Local.Street.Set(V.DataView.dtEmp!dvEmp2(0).Street!FieldValString)
+				V.Local.City.Set(V.DataView.dtEmp!dvEmp2(0).City!FieldValString)
+				V.Local.State.Set(V.DataView.dtEmp!dvEmp2(0).State!FieldValString)
+				V.Local.Zip.Set(V.DataView.dtEmp!dvEmp2(0).Zip!FieldValString)
+
+				'Sum up the employee's duplicate record
+				'Y_PY_W2_EMP: Fed Wages, Fed withholding, Fica Wages, Fica Withholding, Medi Wages, Medi Withholding, Dep Care
+				F.Data.DataTable.Compute("dtEmp","Sum(Fed_Wages)",V.Local.sFlt,V.Local.fFedWage)
+				F.Data.DataTable.Compute("dtEmp","Sum(Fed_Withholding)",V.Local.sFlt,V.Local.fFedWith)
+				F.Data.DataTable.Compute("dtEmp","Sum(Fica_Wages)",V.Local.sFlt,V.Local.fFicaWage)
+				F.Data.DataTable.Compute("dtEmp","Sum(Fica_Withholding)",V.Local.sFlt,V.Local.fFicaWith)
+				F.Data.DataTable.Compute("dtEmp","Sum(Medi_Wages)",V.Local.sFlt,V.Local.fMedWage)
+				F.Data.DataTable.Compute("dtEmp","Sum(Medi_Withholding)",V.Local.sFlt,V.Local.fMedWith)
+				F.Data.DataTable.Compute("dtEmp","Sum(Dep_Care)",V.Local.sFlt,V.Local.fDepCare)
+
+				V.Local.Statutory_Emp.Set(V.DataView.dtEmp!dvEmp2(0).Statutory_Emp!FieldValString)
+				V.Local.Retirement_Plan.Set(V.DataView.dtEmp!dvEmp2(0).Retirement_Plan!FieldValString)
+				V.Local.Third_Party_Sick.Set(V.DataView.dtEmp!dvEmp2(0).Third_Party_Sick!FieldValString)
+
+				F.Data.DataView.Close("dtEmp","dvEmp2")
+				'delete old dtEmp records.
+				F.Intrinsic.Control.For(V.Local.ii,V.Local.sIDs.LBound,V.Local.sIDs.UBound,1)	
+					F.Intrinsic.String.Build("Employee = '{0}'",V.Local.sIDs(V.Local.ii),V.Local.sFltII)
+					F.Data.DataTable.Select("dtEmp",V.Local.sFltII,V.Local.sOrd)
+					F.Intrinsic.Control.If(V.Local.sOrd,<>,"***NORETURN***")
+						F.Data.DataTable.DeleteRow("dtEmp",V.Local.sOrd.Long)
+					F.Intrinsic.Control.EndIf
+				F.Intrinsic.Control.Next(V.Local.ii)
+
+				'Set new employee record
+				F.Data.DataTable.AddRow("dtEmp",Employee,V.Local.Employee,Ssn,V.Local.SSN,Last_Name,V.Local.Last_Name,First_Name,V.Local.First_Name,Middle_Init,V.Local.Middle_Init,Street,V.Local.Street,City,V.Local.City,State,V.Local.State,Zip,V.Local.Zip,Fed_Wages,V.Local.fFedWage.Currency,Fed_Withholding,V.Local.fFedWith.Currency,Fica_Wages,V.Local.fFicaWage.Currency,Fica_Withholding,V.Local.fFicaWith.Currency,Medi_Wages,V.Local.fMedWage.Currency,Medi_Withholding,V.Local.fMedWith.Currency,Dep_Care,V.Local.fDepCare.Currency,Statutory_Emp,V.Local.Statutory_Emp,Retirement_Plan,V.Local.Retirement_Plan,Third_Party_Sick,V.Local.Third_Party_Sick)			
+
+'***GET BOX 12 AMOUNTS***
+				F.Intrinsic.Control.If(V.DataTable.dtTemp.Exists,=,True)
+					'First get box 12 values.
+					F.Data.DataView.Create("dtAddl","dvAddl")
+					F.Intrinsic.String.Build("({0}) and Box = 12",V.Local.sFlt,V.Local.sFltII)
+					F.Data.DataView.SetFilter("dtAddl","dvAddl",V.Local.sFltII)	
+					F.Intrinsic.Control.If(V.DataView.dtAddl!dvAddl.RowCount--,>,-1)
+						'Put all IRS Codes in array
+						V.Local.irs_code_array.Set("")
+						F.Intrinsic.Control.For(V.Local.ii,0,V.DataView.dtAddl!dvAddl.RowCount--,1)
+							V.Local.irs_code_array.Append(V.DataView.dtAddl!dvAddl(V.Local.ii).Irs_Code!FieldValString)
+							V.Local.irs_code_array.Append("*!*")
+						F.Intrinsic.Control.Next(V.Local.ii)
+						'trim off last delimter than set result it back to array var.
+						F.Intrinsic.Math.Sub(V.Local.irs_code_array.Length,3,V.Local.Len)
+						V.Local.irs_code_array.Set(V.Local.irs_code_array.LeftV.Local.Len)
+						F.Intrinsic.String.Split(V.Local.irs_code_array,"*!*",V.Local.irs_code_array)
+						'Get distinct irs codes.
+						Function.Intrinsic.String.RemoveArrayDuplicates(V.Local.irs_code_array,V.Local.irs_code_array)
+						'Loop thru array to get totals for each code.
+
+						F.Data.DataView.Create("dtAddl","dvAddl2")
+						V.Local.A_Seq.Set(0)
+						F.Intrinsic.Control.For(V.Local.ii,V.Local.irs_code_array.LBound,V.Local.irs_code_array.UBound,1)		
+							F.Intrinsic.String.Build("{0} And Irs_Code = '{1}'",V.Local.sFltII,V.Local.irs_code_array(V.Local.ii),V.Local.sFltIII)
+							'Sum amount_12 where irs code is = irs_code_array element.
+							F.Data.DataTable.Compute("dtAddl","Sum(Amount_12)",V.Local.sFltIII,V.Local.fAmount_12)
+							'getting box 12 description for based on the first employee id.
+							F.Intrinsic.String.Build("Employee = '{0}' And Irs_Code = '{1}'",V.Local.sIDs(0),V.Local.irs_code_array(V.Local.ii),V.Local.sFltIII)
+							F.Data.DataView.SetFilter("dtAddl","dvAddl2",V.Local.sFltIII)
+							F.Intrinsic.Control.If(V.DataView.dtAddl!dvAddl2.RowCount,<>,0)
+								V.Local.Box_Desc.Set(V.DataView.dtAddl!dvAddl2(0).Box_Desc!FieldValString)
+							F.Intrinsic.Control.Else
+								V.Local.Box_Desc.Set("")
+							F.Intrinsic.Control.EndIf
+							F.Intrinsic.Math.Add(V.Local.A_Seq,1,V.Local.A_Seq)
+							F.Intrinsic.String.Build("{0}{1}*!*12*!*{2}*!*{3}*!*{4}*!*{5}@!@",V.Local.sRows,V.Local.Employee,V.Local.A_Seq,V.Local.irs_code_array(V.Local.ii).Trim,V.Local.fAmount_12,V.Local.Box_Desc,V.Local.sRows)
+						F.Intrinsic.Control.Next(V.Local.ii)
+						F.Data.DataView.Close("dtAddl","dvAddl2")
+
+						'delete old Box 12 dtAddl records.				
+						F.Intrinsic.Control.For(V.Local.ii,V.Local.sIDs.LBound,V.Local.sIDs.UBound,1)	
+							F.Intrinsic.Control.For(V.Local.iii,V.Local.irs_code_array.LBound,V.Local.irs_code_array.UBound,1)
+								F.Intrinsic.String.Build("Employee = '{0}' and Irs_Code = '{1}' and Box = '12'",V.Local.sIDs(V.Local.ii),V.Local.irs_code_array(V.Local.iii),V.Local.sFltII)
+								F.Data.DataTable.Select("dtAddl",V.Local.sFltII,V.Local.sOrd)
+								F.Intrinsic.Control.If(V.Local.sOrd,<>,"***NORETURN***")
+									F.Data.DataTable.DeleteRow("dtAddl",V.Local.sOrd.Long)
+								F.Intrinsic.Control.EndIf
+							F.Intrinsic.Control.Next(V.Local.iii)
+						F.Intrinsic.Control.Next(V.Local.ii)
+
+						'Trimming off last delimiter
+						F.Intrinsic.Math.Sub(V.Local.sRows.Length,3,V.Local.Len)
+						V.Local.sRows.Set(V.Local.sRows.LeftV.Local.Len)
+						F.Intrinsic.String.Split(V.Local.sRows,"@!@",V.Local.sRows)
+						'Foreach Row
+						F.Intrinsic.Control.For(V.Local.ii,V.Local.sRows.LBound,V.Local.sRows.UBound,1)
+							'Split columns and AddRow to dtAddl table 
+							F.Intrinsic.String.Split(V.Local.sRows(V.Local.ii),"*!*",V.Local.sRow)
+							   V.Local.fAmount_12.Set(V.Local.sRow(4))
+							'Set new values 
+							F.Data.DataTable.AddRow("dtAddl",Employee,V.Local.sRow(0),Box,V.Local.sRow(1).Long,Seq,V.Local.sRow(2).Long,Irs_Code,V.Local.sRow(3),Amount_12,V.Local.fAmount_12.Currency,Box_Desc,V.Local.sRow(5))
+						F.Intrinsic.Control.Next(V.Local.ii)
+					F.Intrinsic.Control.EndIf
+					F.Data.DataView.Close("dtAddl","dvAddl")
+
+	'***GET BOX 14 AMOUNTS.****
+					F.Data.DataView.Create("dtAddl","dvAddl")
+					F.Intrinsic.String.Build("({0}) and Box = 14",V.Local.sFlt,V.Local.sFltII)
+					F.Data.DataView.SetFilter("dtAddl","dvAddl",V.Local.sFltII)
+					V.Local.fAmount_14.Set(0)
+					V.Local.Box_Desc.Set("")
+					F.Intrinsic.Control.If(V.DataView.dtAddl!dvAddl.RowCount--,>,-1)
+
+						V.Local.sRows.Set("")
+						'Sum up Box 14, Seq 1
+						F.Data.DataView.Create("dtAddl","dvBox14Desc")
+						F.Intrinsic.String.Build("({0}) and Box = 14 and SEQ = 1",V.Local.sFlt,V.Local.sFltII)
+						F.Data.DataView.SetFilter("dtAddl","dvBox14Desc",V.Local.sFltII)
+						F.Intrinsic.Control.If(V.DataView.dtAddl!dvBox14Desc.RowCount--,>,-1)
+							V.Local.Box_Desc.Set(V.DataView.dtAddl!dvBox14Desc(0).Box_Desc!FieldValString)
+							F.Data.DataTable.Compute("dtAddl","Sum(Amount_14)",V.Local.sFltII,V.Local.fAmount_14)
+							F.Intrinsic.String.Build("{0}{1}*!*14*!*{2}*!*{3}*!*{4}*!*{5}@!@",V.Local.sRows,V.Local.Employee,"1","",V.Local.fAmount_14,V.Local.Box_Desc,V.Local.sRows)
+						F.Intrinsic.Control.EndIf
+
+						'Sum up Box 14, Seq 2
+						F.Intrinsic.String.Replace(V.Local.sFltII," SEQ = 1"," SEQ = 2",V.Local.sFltII)
+						F.Data.DataView.SetFilter("dtAddl","dvBox14Desc",V.Local.sFltII)
+						F.Intrinsic.Control.If(V.DataView.dtAddl!dvBox14Desc.RowCount--,>,-1)
+							V.Local.Box_Desc.Set(V.DataView.dtAddl!dvBox14Desc(0).Box_Desc!FieldValString)
+							F.Data.DataTable.Compute("dtAddl","Sum(Amount_14)",V.Local.sFltII,V.Local.fAmount_14)
+							F.Intrinsic.String.Build("{0}{1}*!*14*!*{2}*!*{3}*!*{4}*!*{5}@!@",V.Local.sRows,V.Local.Employee,"2","",V.Local.fAmount_14,V.Local.Box_Desc,V.Local.sRows)
+						F.Intrinsic.Control.EndIf					
+						F.Data.DataView.Close("dtAddl","dvBox14Desc")
+
+	'					'delete old Box 14 dtAddl records.
+						F.Intrinsic.String.Replace(V.Local.sFltII," and SEQ = 2","",V.Local.sFltII)
+						F.Intrinsic.String.Replace(V.Local.sFltII," = "," <> ",V.Local.sFltII)
+						F.Data.DataView.SetFilter("dtAddl","dvAddl",V.Local.sFltII)
+						F.Data.DataView.ToDataTable("dtAddl","dvAddl","dtTemp",True)	
+
+					F.Intrinsic.Control.EndIf
+					F.Data.DataView.Close("dtAddl","dvAddl")
+					F.Data.DataTable.Close("dtAddl")
+
+					'Setting temp table to dtAddl			
+					F.Data.DataView.Create("dtTemp","dvTemp") '<------------
+					F.Data.DataView.SetFilter("dtTemp","dvTemp","Seq <> 9999")
+					F.Data.DataView.ToDataTable("dtTemp","dvTemp","dtAddl",True)
+					F.Data.DataView.Close("dtTemp","dvTemp")
+					F.Data.DataTable.Close("dtTemp")
+
+					'create dataview out of dtAddl and filter out all of current employee along with box 14
+					'Then set with a seperate data table, then merge that data table with dtAddl so they no longer show up.
+					F.Data.DataView.Create("dtAddl","dvAddl")
+					F.Data.DataView.Close("dtAddl","dvAddl")
+					'Trimming off last delimiter
+					F.Intrinsic.Math.Sub(V.Local.sRows.Length,3,V.Local.Len)
+					V.Local.sRows.Set(V.Local.sRows.LeftV.Local.Len)
+					F.Intrinsic.String.Split(V.Local.sRows,"@!@",V.Local.sRows)
+
+					'Foreach Row
+					F.Intrinsic.Control.For(V.Local.ii,V.Local.sRows.LBound,V.Local.sRows.UBound,1)
+						'Split columns and AddRow to dtAddl table 
+						F.Intrinsic.String.Split(V.Local.sRows(V.Local.ii),"*!*",V.Local.sRow)
+						   V.Local.fAmount_14.Set(V.Local.sRow(4))
+						'Set new values 
+						F.Data.DataTable.AddRow("dtAddl",Employee,V.Local.sRow(0),Box,V.Local.sRow(1).Long,Seq,V.Local.sRow(2).Long,Irs_Code,V.Local.sRow(3),Amount_14,V.Local.fAmount_14.Currency,Box_Desc,V.Local.sRow(5))
+					F.Intrinsic.Control.Next(V.Local.ii)
+
+				F.Intrinsic.Control.EndIf
+				F.Data.DataView.Close("dtEmp","dvEmp")
+			F.Intrinsic.Control.EndIf
+
+'***GET LOCAL/STATE AMOUNTS***
+			'Getting Local amounts
+			F.Data.DataView.Create("dtStateLocal","dvStateLocal")
+			'Filter by associated employee id's
+			F.Data.DataView.SetFilter("dtStateLocal","dvStateLocal",V.Local.sFlt)
+			'if records exists, sum them up.
+			F.Intrinsic.Control.If(V.DataView.dtStateLocal!dvStateLocal.RowCount--,>,-1)	
+				'Get all unique states for employee
+				V.Local.State_Code_Array.Set("")
+				F.Intrinsic.Control.For(V.Local.iii,0,V.DataView.dtStateLocal!dvStateLocal.RowCount--,1)
+					V.Local.State_Code_Array.Append(V.DataView.dtStateLocal!dvStateLocal(V.Local.iii).St_State!FieldValString)
+					V.Local.State_Code_Array.Append("*!*")
+				F.Intrinsic.Control.Next(V.Local.iii)
+
+				'trim off last delimter than set result it back to array var.
+				F.Intrinsic.Math.Sub(V.Local.State_Code_Array.Length,3,V.Local.Len)
+				V.Local.State_Code_Array.Set(V.Local.State_Code_Array.LeftV.Local.Len)
+				F.Intrinsic.String.Split(V.Local.State_Code_Array,"*!*",V.Local.State_Code_Array)
+				'Get distinct irs codes.
+				F.Intrinsic.String.RemoveArrayDuplicates(V.Local.State_Code_Array,V.Local.State_Code_Array)
+
+				'Get all unique local code for employee.
+				V.Local.Local_Code_Array.Set("")
+				F.Intrinsic.Control.For(V.Local.iii,0,V.DataView.dtStateLocal!dvStateLocal.RowCount--,1)
+					F.Intrinsic.Control.If(V.DataView.dtStateLocal!dvStateLocal(V.Local.iii).Local_Code!FieldValTrim,<>,"")
+						V.Local.Local_Code_Array.Append(V.DataView.dtStateLocal!dvStateLocal(V.Local.iii).Local_Code!FieldValRTrim)
+						V.Local.Local_Code_Array.Append("*!*")
+					F.Intrinsic.Control.EndIf
+				F.Intrinsic.Control.Next(V.Local.iii)
+
+				'If any local codes found.
+				F.Intrinsic.Control.If(V.Local.Local_Code_Array,<>,"")
+					F.Intrinsic.Math.Sub(V.Local.Local_Code_Array.Length,3,V.Local.Len)
+					V.Local.Local_Code_Array.Set(V.Local.Local_Code_Array.LeftV.Local.Len)
+					F.Intrinsic.String.Split(V.Local.Local_Code_Array,"*!*",V.Local.Local_Code_Array)
+					'Get distinct irs codes.
+					F.Intrinsic.String.RemoveArrayDuplicates(V.Local.Local_Code_Array,V.Local.Local_Code_Array)
+				F.Intrinsic.Control.EndIf
+
+				V.Local.sRows.Set("")
+				'Sum up dtLocal amounts. If data table exists
+				F.Intrinsic.Control.If(V.DataTable.dtLocal.Exists,=,True)
+					'if datatable has more than zero records.
+					F.Intrinsic.Control.If(V.DataTable.dtLocal.RowCount,>,0)
+						F.Data.DataTable.AddColumn("dtLocal","Duplicate",Boolean,False)
+
+						'For each row in the dtLocal table, see if there are duplicates.
+						F.Data.DataView.Create("dtLocal","dvLocal")
+						F.Intrinsic.Control.For(V.Local.iii,0,V.DataTable.dtLocal.RowCount--,1)
+							F.Intrinsic.String.Build("({0}) And State = '{1}' and Local_Code = '{2}'",V.Local.sFlt,V.DataTable.dtLocal(V.Local.iii).State!FieldValString,V.DataTable.dtLocal(V.Local.iii).Local_Code!FieldValString,V.Local.sFltII)
+							F.Data.DataView.SetFilter("dtLocal","dvLocal",V.Local.sFltII)
+							F.Intrinsic.Control.If(V.DataView.dtLocal!dvLocal.RowCount--,>,0)
+								F.Data.DataTable.Select("dtLocal",V.Local.sFltII,V.Local.sRet)
+								'Get the multiple orginals returned (there should be multiple by this point)
+								F.Intrinsic.String.IsInString(V.Local.sRet,"*!*",TRUE,V.Local.bRet)
+								F.Intrinsic.Control.If(V.Local.bRet,=,TRUE)
+									F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+									F.Intrinsic.Control.For(V.Local.iv,V.Local.sRet.LBound,V.Local.sRet.UBound,1)
+										F.Data.DataTable.SetValue("dtLocal",V.Local.sRet(V.Local.iv),"Duplicate",TRUE)
+									F.Intrinsic.Control.Next(V.Local.iv)
+								F.Intrinsic.Control.EndIf
+							F.Intrinsic.Control.EndIf
+						F.Intrinsic.Control.Next(V.Local.iii)
+
+						'Sum up the flagged rows
+						F.Data.DataView.SetFilter("dtLocal","dvLocal","Duplicate = True")
+						F.Intrinsic.Control.If(V.DataView.dtLocal!dvLocal.RowCount--,>,-1)
+							'Get all unique local code for employee.
+							V.Local.Duplicate_St_Lc.Set("")
+							F.Intrinsic.Control.For(V.Local.iii,0,V.DataView.dtLocal!dvLocal.RowCount--,1)
+								F.Intrinsic.Control.If(V.DataView.dtLocal!dvLocal(V.Local.iii).Local_Code!FieldValTrim,<>,"")
+									V.Local.Duplicate_St_Lc.Append(V.DataView.dtLocal!dvLocal(V.Local.iii).State!FieldValString)
+									V.Local.Duplicate_St_Lc.Append("*!*")
+									V.Local.Duplicate_St_Lc.Append(V.DataView.dtLocal!dvLocal(V.Local.iii).Local_Code!FieldValString)
+									V.Local.Duplicate_St_Lc.Append("@!@")
+								F.Intrinsic.Control.EndIf
+							F.Intrinsic.Control.Next(V.Local.iii)
+
+							'If any local codes found.
+							F.Intrinsic.Control.If(V.Local.Duplicate_St_Lc,<>,"")
+								F.Intrinsic.Math.Sub(V.Local.Duplicate_St_Lc.Length,3,V.Local.Len)
+								V.Local.Duplicate_St_Lc.Set(V.Local.Duplicate_St_Lc.LeftV.Local.Len)
+								F.Intrinsic.String.IsInString(V.Local.Duplicate_St_Lc,"@!@",TRUE,V.Local.bRet)
+								F.Intrinsic.String.Split(V.Local.Duplicate_St_Lc,"@!@",V.Local.Duplicate_St_Lc)
+								'Get distinct irs codes.
+								F.Intrinsic.String.RemoveArrayDuplicates(V.Local.Duplicate_St_Lc,V.Local.Duplicate_St_Lc)
+							F.Intrinsic.Control.EndIf
+
+'							F.Intrinsic.Control.If(V.Local.sFlt,=,"Employee = '00210' OR Employee = '00397'")
+'						'	F.Intrinsic.Control.If(V.Local.sFlt,=,"Employee = '00120' OR Employee = '00362'")
+'							F.Intrinsic.Debug.InvokeDebugger							
+'							F.Intrinsic.Debug.Stop
+'							F.Intrinsic.Control.EndIf
+
+							'Loop through each unique Local Code. 
+							F.Intrinsic.Control.For(V.Local.iii,V.Local.Duplicate_St_Lc.LBound,V.Local.Duplicate_St_Lc.UBound,1)
+								F.Intrinsic.Control.If(V.Local.Duplicate_St_Lc(V.Local.iii).Trim,<>,"")
+									F.Intrinsic.String.Split(V.Local.Duplicate_St_Lc(V.Local.iii).Trim,"*!*",V.Local.sRet)
+									F.Intrinsic.String.Build("({0}) And State = '{1}' and Local_Code = '{2}'",V.Local.sFlt,V.Local.sRet(0),V.Local.sRet(1),V.Local.sFltII)
+									F.Data.DataTable.Compute("dtLocal","Sum(Wages)",V.Local.sFltII,V.Local.L_Wages)
+									F.Data.DataTable.Compute("dtLocal","Sum(Withholding)",V.Local.sFltII,V.Local.L_Withholding)
+									'Setting new calculated values into duplcaite employee where the employee ID is = V.Local.Employee.
+									F.Intrinsic.String.Build("Employee = '{0}' And State = '{1}' and Local_Code = '{2}'",V.Local.Employee,V.Local.sRet(0),V.Local.sRet(1),V.Local.sFltII)
+									'One ordinal should be returned, so no need for splitting the return value.
+									F.Data.DataTable.Select("dtLocal",V.Local.sFltII,V.Local.sRet)
+									F.Data.DataTable.SetValue("dtLocal",V.Local.sRet,"Wages",V.Local.L_Wages.Currency)
+									F.Data.DataTable.SetValue("dtLocal",V.Local.sRet,"Withholding",V.Local.L_Withholding.Currency)
+									F.Data.DataTable.SetValue("dtLocal",V.Local.sRet,"Duplicate",FALSE)
+								F.Intrinsic.Control.EndIf
+							F.Intrinsic.Control.Next(V.Local.iii)
+
+							'Now Filter out the duplicate records
+							F.Data.DataView.Create("dtLocal","TEMP_Local")
+							F.Data.DataView.SetFilter("dtLocal","TEMP_Local","Duplicate = False")
+							'Create new datatable without the duplicate records into a temp datatable.
+							F.Data.DataView.ToDataTable("dtLocal","TEMP_Local","TEMP_DATATABLE",True)
+							F.Data.DataView.Close("dtLocal","TEMP_Local")
+							F.Data.DataTable.Close("dtLocal")
+							F.Data.DataTable.RemoveColumn("TEMP_DATATABLE","Duplicate")
+
+							'Now use the temp data table with the filtered records to create the dtLocal data table again so we can keep using it with other employee's records.
+							F.Data.DataView.Create("TEMP_DATATABLE","V_Temp")
+							F.Data.DataView.SetFilter("TEMP_DATATABLE","V_Temp","")
+							'Create new datatable without the duplicate records into a temp datatable.
+							F.Data.DataView.ToDataTable("TEMP_DATATABLE","V_Temp","dtLocal",True)
+							F.Data.DataView.Close("TEMP_DATATABLE","V_Temp")
+							F.Data.DataTable.Close("TEMP_DATATABLE")
+
+							F.Intrinsic.Control.EndIf
+
+							F.Intrinsic.Control.If(V.DataView.dtLocal!dvLocal.Exists,=,True)
+								F.Data.DataView.Close("dtLocal","dvLocal")
+							F.Intrinsic.Control.EndIf
+
+							F.Intrinsic.String.IsInString(V.DataTable.dtLocal.FieldNames,"Duplicate",TRUE,V.Local.bRet)
+							F.Intrinsic.Control.If(V.Local.bRet,=,True)
+								F.Data.DataTable.RemoveColumn("dtLocal","Duplicate")
+							F.Intrinsic.Control.EndIf
+					F.Intrinsic.Control.EndIf
+				F.Intrinsic.Control.EndIf
+
+				'sum up state and local amounts
+				V.Local.sRows.Set("")
+				'If we have records, continue
+				F.Intrinsic.Control.If(V.Local.State_Code_Array.UBound,<>,-1)
+					F.Data.DataView.Create("dtStateLocal","dvStateLocal2")
+					'For Each State get state amounts
+					F.Intrinsic.Control.For(V.Local.iii,V.Local.State_Code_Array.LBound,V.Local.State_Code_Array.UBound,1)
+						F.Intrinsic.String.Build("({0}) And St_State = '{1}'",V.Local.sFlt,V.Local.State_Code_Array(V.Local.iii),V.Local.sFltII)
+						F.Data.DataView.SetFilter("dtStateLocal","dvStateLocal2",V.Local.sFltII)
+							V.Local.St_Seq.Set("")
+							V.Local.St_State.Set("")
+							V.Local.St_Tax_ID.Set("")
+							V.Local.St_Wages.Set(0)
+							V.Local.St_Withholding.Set(0)
+							V.Local.L_Seq.Set("")
+							V.Local.L_State.Set("")
+							V.Local.L_Wages.Set(0)
+							V.Local.L_Withholding.Set(0)
+							V.Local.Local_Code.Set("")
+						'If any records found after filtering dataview
+						F.Intrinsic.Control.If(V.DataView.dtStateLocal!dvStateLocal2.RowCount--,>,-1)
+							'Set Employee, St_Seq, St_State, St_Tax_Id, St_Wages, St_Withholding
+							'SUM up using state data table
+							F.Data.DataView.Create("dtState","dvState")
+							F.Intrinsic.String.Build("({0}) And State = '{1}'",V.Local.sFlt,V.Local.State_Code_Array(V.Local.iii),V.Local.sRet)
+							F.Data.DataView.SetFilter("dtState","dvState",V.Local.sRet)
+							V.Local.St_State.Set(V.DataView.dtState!dvState(0).State!FieldValString)
+							V.Local.St_Tax_ID.Set(V.DataView.dtState!dvState(0).Tax_ID!FieldValString)
+							F.Data.DataTable.Compute("dtState","Sum(Wages)",V.Local.sRet,V.Local.St_Wages)
+							F.Data.DataTable.Compute("dtState","Sum(Withholding)",V.Local.sRet,V.Local.St_Withholding)
+							F.Data.DataView.Close("dtState","dvState")
+
+							'Add 1 to state sequence
+							F.Intrinsic.Math.Add(V.Local.St_Seq,1,V.Local.St_Seq)
+							'Adding Local Codes (if any) To STATE totals row
+							F.Intrinsic.Control.If(V.DataTable.dtLocal.Exists,=,True)
+								'If more than zero records.
+								F.Intrinsic.Control.If(V.DataTable.dtLocal.RowCount,>,0)
+									'Apply filter then see if more than zero records returned.
+									F.Data.DataView.Create("dtLocal","dvLocal")
+									'If any of the duplicate employee id's and the State is the current iteration, add a row.
+									F.Data.DataView.SetFilter("dtLocal","dvLocal",V.Local.sRet)		
+									'If records > 0							
+									F.Intrinsic.Control.If(V.DataView.dtLocal!dvLocal.RowCount--,>,-1)
+'										'for each row, add the Local_Code, Wages, and Withholding to the string build.
+										F.Intrinsic.Control.For(V.Local.iv,0,V.DataView.dtLocal!dvLocal.RowCount--,1)
+							'TODO: SUM UP STATE LOCAL CODES..
+											F.Intrinsic.String.Build("{0}{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!*{7}*!*{8}*!*{9}*!*{10}*!*{11}@!@",V.Local.sRows,V.Local.Employee,V.Local.St_Seq,V.Local.St_State,V.Local.St_Tax_ID,V.Local.St_Wages,V.Local.St_Withholding,V.Local.L_Seq,V.Local.L_State,V.DataView.dtLocal!dvLocal(V.Local.iv).Wages!FieldValString,V.DataView.dtLocal!dvLocal(V.Local.iv).Withholding!FieldValString,V.DataView.dtLocal!dvLocal(V.Local.iv).Local_Code!FieldValString,V.Local.sRows)
+										F.Intrinsic.Control.Next(V.Local.iv)
+									F.Intrinsic.Control.Else
+										'Add State record with no Local code values (since no local code values exist)
+										F.Intrinsic.String.Build("{0}{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!**!**!**!**!*@!@",V.Local.sRows,V.Local.Employee,V.Local.St_Seq,V.Local.St_State,V.Local.St_Tax_ID,V.Local.St_Wages,V.Local.St_Withholding,V.Local.sRows)								
+									F.Intrinsic.Control.EndIf
+									F.Data.DataView.Close("dtLocal","dvLocal")
+								F.Intrinsic.Control.Else
+									'Add State record with no Local code values (since no local code values exist)
+									F.Intrinsic.String.Build("{0}{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!**!**!**!**!*@!@",V.Local.sRows,V.Local.Employee,V.Local.St_Seq,V.Local.St_State,V.Local.St_Tax_ID,V.Local.St_Wages,V.Local.St_Withholding,V.Local.sRows)								
+								F.Intrinsic.Control.EndIf
+							F.Intrinsic.Control.Else
+								'Add State record with no Local code values (since no local code values exist)
+								F.Intrinsic.String.Build("{0}{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!**!**!**!**!*@!@",V.Local.sRows,V.Local.Employee,V.Local.St_Seq,V.Local.St_State,V.Local.St_Tax_ID,V.Local.St_Wages,V.Local.St_Withholding,V.Local.sRows)
+							F.Intrinsic.Control.EndIf
+						F.Intrinsic.Control.EndIf
+					F.Intrinsic.Control.Next(V.Local.iii)
+
+					'If new records made, delete old state/local records.
+					F.Intrinsic.Control.If(V.Local.sRows,<>,"")
+'					F.Intrinsic.Control.If(V.Local.sRow,<>,"")			
+						'Delete rows for all associated employee id's so we can set in the new rows.
+						F.Intrinsic.Control.For(V.Local.iii,V.Local.sIDs.LBound,V.Local.sIDs.UBound,1)
+							F.Intrinsic.String.Build("Employee = '{0}'",V.Local.sIDs(V.Local.iii),V.Local.sFltII)
+							F.Data.DataTable.Select("dtStateLocal",V.Local.sFltII,V.Local.sOrd)
+							V.Local.bRet.Set(False)
+							F.Intrinsic.Control.If(V.Local.sOrd,<>,"***NORETURN***")
+								F.Intrinsic.String.IsInString(V.Local.sOrd,"*!*",True,V.Local.bRet)
+								F.Intrinsic.Control.If(V.Local.bRet,=,True)
+									F.Intrinsic.String.Split(V.Local.sOrd,"*!*",V.Local.sOrd)
+									F.Intrinsic.Control.For(V.Local.iv,V.Local.sOrd.LBound,V.Local.sOrd.UBound,1)
+										F.Data.DataTable.Select("dtStateLocal",V.Local.sFltII,V.Local.sRet)
+										F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+										F.Data.DataTable.DeleteRow("dtStateLocal",V.Local.sOrd(V.Local.iv))
+									F.Intrinsic.Control.Next(V.Local.iv)
+								F.Intrinsic.Control.Else	
+									F.Data.DataTable.DeleteRow("dtStateLocal",V.Local.sOrd.Long)
+								F.Intrinsic.Control.EndIf
+							F.Intrinsic.Control.EndIf	
+						f.Intrinsic.Control.Next(V.Local.iii)
+
+						'Add row we saved earlier.
+						'Trimming off last delimiter
+						F.Intrinsic.Math.Sub(V.Local.sRows.Length,3,V.Local.Len)
+						V.Local.sRows.Set(V.Local.sRows.LeftV.Local.Len)
+						F.Intrinsic.String.Split(V.Local.sRows,"@!@",V.Local.sRows)
+						F.Intrinsic.Control.For(V.Local.iv,V.Local.sRows.LBound,V.Local.sRows.UBound,1)
+							'Split columns and AddRow to dtAddl table 
+							F.Intrinsic.String.Split(V.Local.sRows(V.Local.iv),"*!*",V.Local.sRow)
+							'reset variables
+							V.Local.St_Wages.Set(0)
+							V.Local.St_Withholding.Set(0)
+							V.Local.L_Wages.Set(0)
+							V.Local.L_Withholding.Set(0)
+							'set strings back to floats. This way we can convert them into currency format.
+							V.Local.St_Wages.Set(V.Local.sRow(4))
+							V.Local.St_Withholding.Set(V.Local.sRow(5))
+							V.Local.L_Wages.Set(V.Local.sRow(8))
+							V.Local.L_Withholding.Set(V.Local.sRow(9))
+							'Add record
+							'F.Data.DataTable.AddRow("dtStateLocal",Employee,V.Local.sRow(0),St_Seq,V.Local.sRow(1),St_State,V.Local.sRow(2),St_Tax_ID,V.Local.sRow(3),St_Wages,V.Local.St_Wages.Currency,St_Withholding,V.Local.St_Withholding.Currency,L_Seq,V.Local.sRow(6),L_State,V.Local.sRow(7),L_Wages,V.Local.L_Wages.Currency,L_Withholding,V.Local.L_Withholding.Currency,Local_Code,V.Local.sRow(10))
+							'F.Data.DataTable.AddRow("dtStateLocal",Employee,V.Local.sRow(0),St_Seq,V.Local.sRow(1),St_State,V.Local.sRow(2),St_Tax_ID,V.Local.sRow(3),St_Wages,V.Local.St_Wages.Currency,St_Withholding,V.Local.St_Withholding.Currency,L_Seq,V.Local.iv,L_State,V.Local.sRow(7),L_Wages,V.Local.L_Wages.Currency,L_Withholding,V.Local.L_Withholding.Currency,Local_Code,V.Local.sRow(10))
+							F.Data.DataTable.AddRow("dtStateLocal",Employee,V.Local.Employee,St_Seq,V.Local.sRow(1),St_State,V.Local.sRow(2),St_Tax_ID,V.Local.sRow(3),St_Wages,V.Local.St_Wages.Currency,St_Withholding,V.Local.St_Withholding.Currency,L_Seq,V.Local.iv,L_State,V.Local.sRow(7),L_Wages,V.Local.L_Wages.Currency,L_Withholding,V.Local.L_Withholding.Currency,Local_Code,V.Local.sRow(10))
+
+						F.Intrinsic.Control.Next(V.Local.iv)				
+					F.Intrinsic.Control.EndIf
+					F.Data.DataView.Close("dtStateLocal","dvStateLocal2")
+				F.Intrinsic.Control.EndIf
+				F.Data.DataView.Close("dtStateLocal","dvStateLocal")	
+			F.Intrinsic.Control.EndIf	
+		F.Intrinsic.Control.Next(V.Local.i)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+Program.Sub.ReCalculate_Employee_Data.End
+
+Program.Sub.Re_Build_DataTables.Start
+''Currently, whenever the DataTable.DeleteRow function
+''is used,it breaks unless you copy the data to another 
+''datatable.
+
+V.Local.i.Declare(long)
+V.Local.Dt.Declare(String)
+F.Intrinsic.Control.If(V.Global.DuplicateEmployee,=,True)
+	F.Intrinsic.String.Split("dtEmp*!*dtAddl*!*dtStateLocal","*!*",V.Local.Dt)
+	F.Intrinsic.Control.For(V.Local.i,V.Local.Dt.LBound,V.Local.Dt.UBound,1)
+		'copy from original datatable
+		F.Data.DataTable.Create("copy",true)
+		F.Data.DataTable.Merge(V.Local.Dt(V.Local.i),"copy",false,1)
+		F.Data.DataTable.Close(V.Local.Dt(V.Local.i))
+		'rebuild datatable
+		F.Data.DataView.Create("copy","dvcopy",22)
+		F.Data.DataView.ToDataTable("copy","dvcopy",V.Local.Dt(V.Local.i),true)
+		F.Data.DataView.Close("copy","dvcopy")
+		F.Data.DataTable.Close("copy")
+	F.Intrinsic.Control.Next(V.Local.i)
+F.Intrinsic.Control.EndIf
+Program.Sub.Re_Build_DataTables.End
+
+Program.Sub.check_temp_folder.Start
+V.Local.sTempDir.Declare(String)
+V.Local.sTimeStamp.Declare(String)
+V.Local.bRet.Declare(Boolean,false)
+V.Local.sT.Declare(String)
+
+'Creating unique timestamp so we can store all of our temp folders in one place
+'using the unique timestamp as part of the folder name. 
+'That way it'll be quicker to delete after processing, we'd just delete the folder
+'instead of each w2 pdf. 
+F.Intrinsic.String.Replace(V.Ambient.Now,"/","",V.Local.sT)
+F.Intrinsic.String.Replace(V.Local.sT,":","",V.Local.sT)
+F.Intrinsic.String.Replace(V.Local.sT,"AM","",V.Local.sT)
+F.Intrinsic.String.Replace(V.Local.sT,"PM","",V.Local.sT)
+F.Intrinsic.String.Replace(V.Local.sT," ","",V.Local.sT)
+
+'Check if %TEMP%\gss W2 Temp folder is created.
+F.Intrinsic.String.Build("{0}\W2TEMP{1}",V.Caller.LocalGSSTempDir,V.Local.sT,V.Global.LocalGSSTempDir)
+F.Intrinsic.File.Exists(V.Global.LocalGSSTempDir,V.Local.bRet)
+F.Intrinsic.Control.If(V.Local.bRet,=,True)
+	Function.Intrinsic.File.DeleteDir(V.Global.LocalGSSTempDir)
+F.Intrinsic.Control.Else
+	F.Intrinsic.File.CreateDir(V.Global.LocalGSSTempDir)
+F.Intrinsic.Control.EndIf
+'If so, delete it and then create a new one.
+
+Program.Sub.check_temp_folder.End
+
+Program.Sub.Duplicate_Employee_Check.Start
+F.Intrinsic.Control.SetErrorHandler("Duplicate_Employee_Check_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sSort.Declare(String)
+V.Local.sFilter.Declare(String)
+V.Local.i.Declare(Long)
+V.Local.ii.Declare(Long)
+'#TEST
+V.Local.sRec.Declare(String)
+V.Local.s.Declare(string)
+V.Local.sId.Declare(String)
+V.Local.len.Declare(Long)
+V.Local.SameAddress.Declare(Boolean,false)
+'This sub will put  employee's who have multiple
+'Employee  id's  into one data table, there will
+'be a column within the data table  which  shows
+'a delimited array of Id's tied to that employee
+
+'Create Data view from dtEmp
+F.Data.DataView.Create("dtEmp","dvEmp")
+F.Intrinsic.Control.If(V.DataTable.dtEmp.Exists,=,True)
+	F.Intrinsic.Control.For(V.Local.i,0,V.DataTable.dtEmp.RowCount--,1)
+		F.Intrinsic.String.Build("SSN = '{0}'",V.DataTable.dtEmp(V.Local.i).SSN!FieldValString,V.Local.sFilter)
+		Function.Data.DataView.SetFilter("dtEmp","dvEmp",V.Local.sFilter)
+		F.Intrinsic.Control.If(V.DataView.dtEmp!dvEmp.RowCount,>,1)
+			'If employee has multiple emp ID's, set a global variable to true
+			V.Global.DuplicateEmployee.Set(True)
+			'reset string var
+			V.Local.sId.Set("")
+			'making a string build of all the id's associated with the one employee. 
+			F.Intrinsic.Control.For(V.Local.ii,0,V.DataView.dtEmp!dvEmp.RowCount--,1)
+				V.Local.sId.Append(V.DataView.dtEmp!dvEmp(V.Local.ii).Employee.FieldValString)
+				V.Local.sId.Append("@!@")
+			F.Intrinsic.Control.Next(V.Local.ii)
+			'trimming off first three characters.
+			F.Intrinsic.Math.Sub(V.Local.sId.Length,3,V.Local.len)
+			'setting new trimmed var to itself
+			F.Intrinsic.String.Left(V.Local.sId,V.Local.len,V.Local.sId)
+			'string build list of id's to associated SSN.
+			F.Intrinsic.String.Build("{0}::{1}*!*{2}",V.Local.s,V.DataTable.dtEmp(V.Local.i).SSN!FieldValString,V.Local.sId,V.Local.s)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Next(V.Local.i)
+F.Intrinsic.Control.EndIf
+F.Data.DataView.Close("dtEmp","dvEmp")
+
+F.Intrinsic.Control.If(V.Global.DuplicateEmployee,=,True)
+	F.Intrinsic.Control.If(V.Local.s,<>,"")
+		F.Intrinsic.Math.Sub(V.Local.s.Length,2,V.Local.len)
+		F.Intrinsic.String.Right(V.Local.s,V.Local.len,V.Local.s)
+		F.Intrinsic.String.Split(V.Local.s,"::",V.Local.s)
+		F.Intrinsic.String.RemoveArrayDuplicates(V.Local.s,V.Local.s)
+		F.Intrinsic.String.Join(V.Local.s,"::",V.Local.s)
+		'Create data table of employees with multiple employee id's.
+		F.Data.DataTable.CreateFromString("dtDuplicateEmps",V.Local.s,"SSN*!*EMPIDS","STRING*!*STRING","*!*","::",True)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("Duplicate_Employee_Check_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Duplicate_Employee_Check.End
+
+Program.Sub.Get_Currernt_Filing_Instructions.Start
+V.Local.sW2Instructions.Declare(String)
+V.Local.sW2EmployerInstructions.Declare(String)
+V.Local.Xml_Path.Declare(String)
+
+F.Intrinsic.String.Build("{0}\Busint\",V.Caller.GlobalDir,V.Local.Xml_Path)
+F.Intrinsic.String.Build("{0}\Busint\W2_Instructions_Employees.pdf",V.Caller.GlobalDir,V.Local.sW2Instructions)
+F.Intrinsic.String.Build("{0}\Busint\W2_Instructions_Employers.pdf",V.Caller.GlobalDir,V.Local.sW2EmployerInstructions)
+
+'Function.Data.DataTable.CreateFromXML("d_EmployeeIns",V.Local.Xml_Path,False)
+
+V.Local.shold.Declare(String)
+V.Local.sret.Declare(String)
+V.Local.bEOF.Declare(Boolean)
+
+'read xml document
+F.Intrinsic.String.Build("{0}\Busint\test.xml",V.Caller.GlobalDir,V.Local.Xml_Path)
+'load document created from prior step.
+f.global.XML.LoadDocument("xmlDoc2",V.Local.Xml_Path,false,true,false,false)
+
+''Query document to a node set using Xpath
+'f.global.XML.Query("xmlDoc2","set1","//*/mynode2")
+'
+''loop through node set
+'F.Intrinsic.Control.dountil(V.local.bEOF,=,True)
+''reads active node in set text value
+'f.global.xml.ReadNodeSetValue("xmlDoc2","set1","text",V.local.sret)
+'F.Intrinsic.UI.Msgbox(V.Local.sret)
+''moves to next node in set
+'f.global.xml.next("xmlDoc2","set1",V.local.bEOF)
+'F.Intrinsic.Control.loop
+
+
+f.global.XML.Query("xmlDoc2","set1","/MyRoot/mynodesecond/mynode2")
+f.global.xml.ReadNodeSetValue("xmlDoc2","set1","text",V.local.sret)
+F.Intrinsic.UI.Msgbox(V.Local.sret)
+
+'close node set
+f.global.xml.closeSet("xmlDoc2","set1")
+F.global.xml.CloseDocument("xmlDoc2")
+
+
+
+'*******************************************
+'Pulls the next 
+F.Intrinsic.Control.SelectCase(V.Global.iYr)
+
+F.Intrinsic.Control.case(2015)
+
+F.Intrinsic.Control.Case(2016)
+
+F.Intrinsic.Control.CaseElse
+	'print 2016
+
+F.Intrinsic.Control.EndSelect
+
+
+
+Program.Sub.Get_Currernt_Filing_Instructions.End
+
+Program.Sub.Get_Header.Start
+F.Intrinsic.Control.SetErrorHandler("Get_Header_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+V.Local.sSQL.Declare(String)
+V.Local.sZip.Declare(String)
+V.Local.sPDFdir.Declare(String)
+V.Local.sFields.Declare(String)
+V.Local.sFieldVals.Declare(String)
+V.Local.sStreetFrmt.Declare(String)
+V.Local.sStateLocVals.Declare(String)
+V.Local.sHeaderVals.Declare(String)
+V.Local.sChkBx1.Declare(String)
+V.Local.sChkBx2.Declare(String)
+V.Local.sBox14Desc1.Declare(String)
+V.Local.sBox14Desc2.Declare(String)
+V.Local.sCodeA.Declare(String)
+V.Local.sCodeB.Declare(String)
+V.Local.sCodeC.Declare(String)
+V.Local.sCodeD.Declare(String)
+V.Local.iAamt.Declare(String)
+V.Local.iBamt.Declare(String)
+V.Local.iCamt.Declare(String)
+V.Local.iDamt.Declare(String)
+V.Local.iBox14Amt1.Declare(String)
+V.Local.iBox14Amt2.Declare(String)
+V.Local.sW2Instructions.Declare(String)
+V.Local.sFilter.Declare(String)
+V.local.sW2EmployerInstructions.Declare(String)
+V.Local.iHdl.Declare(Long)
+V.Local.iCopy.Declare(Long)
+V.Local.iC.Declare(Long)
+V.Local.iC2.Declare(Long)
+V.Local.iC3.Declare(Long)
+V.Local.bRet.Declare(Boolean)
+V.Local.bAddlPage.Declare(Boolean)
+V.Local.bExit.Declare(Boolean,False)
+V.Local.bCheck.Declare(Boolean,False)
+V.Local.iNum.Declare(Long)
+V.Local.iVal.Declare(Long)
+
+'Getting w2 instructions FQP
+'F.Intrinsic.Control.CallSub(Get_Currernt_Filing_Instructions)
+F.Intrinsic.Control.If(V.Global.iYr,=,2016)
+	F.Intrinsic.String.Build("{0}\Busint\W2_Instructions_Employees_2016.pdf",V.Caller.GlobalDir,V.Local.sW2Instructions)
+	F.Intrinsic.String.Build("{0}\Busint\W2_Instructions_Employers_2016.pdf",V.Caller.GlobalDir,V.Local.sW2EmployerInstructions)
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Build("{0}\Busint\W2_Instructions_Employees.pdf",V.Caller.GlobalDir,V.Local.sW2Instructions)
+	F.Intrinsic.String.Build("{0}\Busint\W2_Instructions_Employers.pdf",V.Caller.GlobalDir,V.Local.sW2EmployerInstructions)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Screen.Form!chkFedEmp.Value,=,1,"OR",V.Screen.Form!chkStates1and2.Value,=,1)
+	V.Global.P_Forms.Set(True)
+F.Intrinsic.Control.EndIf
+
+'Printing Filing Instructions if it's the only one checked.
+F.Intrinsic.Math.Add(V.Screen.Form!chk1AllCopies.Value,V.Screen.Form!chk1State1.Value,V.Screen.Form!chk1State2.Value,V.Screen.Form!chk1Federal.Value,V.Screen.Form!chk1Filing.Value,V.Screen.Form!chk1Employee.Value,V.Screen.Form!chk1Employer.Value,V.Screen.Form!chkFedEmp.Value,V.Screen.Form!chkStates1and2.Value,V.Local.iVal)
+'if only filing instructions checked.
+F.Intrinsic.Control.If(V.Local.iVal,=,1)
+	F.Intrinsic.Control.If(V.Screen.Form!chk1Filing.Value,=,1)
+		Gui.F_Progress..Visible(False)
+		'Getting handle ID to open up with a PDF viewer
+		F.Intrinsic.File.CopyFile (V.Local.sW2Instructions,V.Global.sFileDirRet)
+		F.Intrinsic.File.GetHandle(V.Local.iHdl)
+		'Opening PDF
+		F.Intrinsic.Task.ShellExec(V.Local.iHdl,"Open",V.Global.sFileDirRet,"","",1)
+		F.Intrinsic.Control.ExitSub
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+
+'Write records if any to pdf.
+F.Intrinsic.Control.If(V.DataTable.dtEmp.RowCount,>,0)
+	Gui.F_Progress..Show
+	Gui.F_Progress.progressBar1.Scrolling(2)
+
+	F.Intrinsic.Control.If(V.Global.P_Forms,=,True)
+			F.Intrinsic.String.Build("{0}\Busint\PY_fw2_P.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+	F.Intrinsic.Control.Else
+			F.Intrinsic.String.Build("{0}\Busint\PY_fw2.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+	F.Intrinsic.Control.EndIf	
+	'opening up PDF object and getting field names
+	F.Automation.PDF.Open("fW2",V.Local.sPDFDir)
+	F.Automation.PDF.GetFieldNames("fW2",V.Local.sFields)
+	F.Automation.PDF.Close("fW2")
+
+	'Create DataViews so we can filter later on
+	F.Intrinsic.Control.CallSub("CreateDataViews_And_DataTables")
+		F.Intrinsic.Control.For(V.Local.iC,0,V.DataTable.dtEmp.RowCount--,1)
+			'Another For loop, three copies are required
+			'Copy 1 - State, Copy 2 - State, Copy B - Federal, Copy C - Employee, Copy D - Employer, Perforated Forms State, Perforated Forms Fed.
+			F.Intrinsic.Control.For(V.Local.iCopy,0,6,1)
+
+				'Determine which copies the user wants printed
+				F.Intrinsic.Control.SelectCase(V.Global.iCounter)
+					'1. Copy 1 - State 1
+					F.Intrinsic.Control.Case(0)
+						F.Intrinsic.Control.If(V.Screen.Form!chk1State1.Value,<>,1)
+							F.Intrinsic.Math.Add(V.Global.iCounter,1,V.Global.iCounter)
+							F.Intrinsic.Control.Next(V.Local.iCopy)
+						F.Intrinsic.Control.EndIf
+					'2. Copy 2 - State 2
+					F.Intrinsic.Control.Case(1)
+						F.Intrinsic.Control.If(V.Screen.Form!chk1State2.Value,<>,1)
+							F.Intrinsic.Math.Add(V.Global.iCounter,1,V.Global.iCounter)
+							F.Intrinsic.Control.Next(V.Local.iCopy)
+						F.Intrinsic.Control.EndIf
+					'3. Copy B - Federal
+					F.Intrinsic.Control.Case(2)
+						F.Intrinsic.Control.If(V.Screen.Form!chk1Federal.Value,<>,1)
+							F.Intrinsic.Math.Add(V.Global.iCounter,1,V.Global.iCounter)
+							F.Intrinsic.Control.Next(V.Local.iCopy)
+						F.Intrinsic.Control.EndIf
+					'4. Copy C - Employee
+					F.Intrinsic.Control.Case(3)
+						F.Intrinsic.Control.If(V.Screen.Form!chk1Employee.Value,<>,1)
+							F.Intrinsic.Math.Add(V.Global.iCounter,1,V.Global.iCounter)
+							F.Intrinsic.Control.Next(V.Local.iCopy)
+						F.Intrinsic.Control.EndIf
+					'5. Copy D - Employer
+					F.Intrinsic.Control.Case(4)
+						F.Intrinsic.Control.If(V.Screen.Form!chk1Employer.Value,<>,1)
+							F.Intrinsic.Math.Add(V.Global.iCounter,1,V.Global.iCounter)
+							F.Intrinsic.Control.Next(V.Local.iCopy)
+						F.Intrinsic.Control.EndIf
+					'6. Perforated Forms Fed						
+					F.Intrinsic.Control.Case(5)
+						F.Intrinsic.Control.If(V.Screen.Form!chk1Filing.Value,=,1)
+							F.Intrinsic.Control.If(V.Global.P_Forms,=,False)
+								F.Intrinsic.String.Build("{0}*!*{1}",V.Global.sFileMerge,V.Local.sW2Instructions,V.Global.sFileMerge)
+							F.Intrinsic.Control.EndIf
+						F.Intrinsic.Control.EndIf
+						F.Intrinsic.Control.If(V.Screen.Form!chkFedEmp.Value,<>,1)
+							F.Intrinsic.Math.Add(V.Global.iCounter,1,V.Global.iCounter)
+							F.Intrinsic.Control.Next(V.Local.iCopy)
+						F.Intrinsic.Control.EndIf
+
+					'7. Perforated Forms State						
+					F.Intrinsic.Control.Case(6)
+						F.Intrinsic.Control.If(V.Screen.Form!chkStates1and2.Value,<>,1)
+							F.Intrinsic.Math.Add(V.Global.iCounter,1,V.Global.iCounter)	
+							F.Intrinsic.Control.ExitFor(V.Local.iCopy)
+						F.Intrinsic.Control.EndIf						
+				F.Intrinsic.Control.EndSelect
+
+				'For every employee, load to fields A thru F/ 1 thru 20. IRS Efile forms are an option and will NOT be filled out.
+				F.Automation.PDF.IsOpen("fW2",V.Local.bCheck)
+				F.Intrinsic.Control.If(V.local.bCheck,=,True)
+					F.Automation.PDF.Close("fW2")
+				F.Intrinsic.Control.Endif
+				F.Automation.PDF.Open("fW2",V.Local.sPDFDir)
+
+				'Fields A.Employee SSN, B.EIN, C.Company Name
+				F.Intrinsic.String.Build("{0}*!*{1}*!*{2}{3}",V.DataTable.dtEmp(V.Local.iC).SSN!FieldValString,V.DataTable.dtHDR(0).Federal_ID!FieldValString,V.DataTable.dtHDR(0).Company_Name!FieldValString,V.Ambient.NewLine,V.Local.sFieldVals)
+
+				'C.delivery address, location
+				F.Intrinsic.String.Build("{0}{1}{2}{3}{4}",V.Local.sFieldVals,V.DataTable.dtHDR(0).Delivery_Addr!FieldValString,V.Ambient.NewLine,V.DataTable.dtHDR(0).Location_Addr!FieldValString,V.Ambient.NewLine,V.Local.sFieldVals)
+				F.Intrinsic.String.Replace(V.DataTable.dtHDR(0).Address_Zip!FieldValString,"","",V.Local.sZip)
+
+				'C.City, State, Zip
+				F.Intrinsic.String.Build("{0}{1}, {2} {3}",V.Local.sFieldVals,V.DataTable.dtHDR(0).Address_City!FieldValRtrim,V.DataTable.dtHDR(0).Address_State!FieldValString,V.Local.sZip,V.Local.sFieldVals)
+				'Control Number, First name, Middle Initial, Last name, suffix, Employee street
+				F.Intrinsic.String.Build("{0}*!*{1}*!*{2} {3}*!*{4}*!*{5}*!*{6}{7}",V.Local.sFieldVals,"",V.DataTable.dtEmp(V.Local.iC).First_Name!FieldValRTrim,V.DataTable.dtEmp(V.Local.iC).Middle_Init!FieldVal,V.DataTable.dtEmp(V.Local.iC).Last_Name!FieldValRTrim,"",V.DataTable.dtEmp(V.Local.iC).Street!FieldValString,V.Ambient.NewLine,V.Local.sFieldVals)
+				F.Intrinsic.String.Replace(V.DataTable.dtEmp(V.Local.iC).Zip!FieldValString,"","",V.Local.sZip)
+
+				'If street is blank take out the comma.
+				F.Intrinsic.Control.If(V.DataTable.dtEmp(V.Local.iC).City!FieldValRTrim,=,"")
+					V.Local.sStreetFrmt.Set("")
+				F.Intrinsic.Control.Else
+					F.Intrinsic.String.Build("{0},",V.DataTable.dtEmp(V.Local.iC).City!FieldValRTrim,V.Local.sStreetFrmt)
+				F.Intrinsic.Control.EndIf
+
+				F.Intrinsic.String.Build("{0}{1} {2} {3}",V.Local.sFieldVals,V.Local.sStreetFrmt,V.DataTable.dtEmp(V.Local.iC).State!FieldValRTrim,V.Local.sZip,V.Local.sFieldVals)
+
+				'This varaible will be used for additional pages if any more are needed, this will be used for multiple state/local lines.
+				V.Local.sHeaderVals.Set(V.Local.sFieldVals)
+
+				'1.Fed wages, 2.Fed withheld, 3.fica wages, 4.fica withheld, 5.Medi Wages, 6.Medi withheld. 7.social security tips, 8.allocated tips
+				F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!*{7}*!*{8}",V.Local.sFieldVals,V.DataTable.dtEmp(V.Local.iC).Fed_Wages!FieldValString,V.DataTable.dtEmp(V.Local.iC).Fed_Withholding!FieldValString,V.DataTable.dtEmp(V.Local.iC).Fica_Wages!FieldValString,V.DataTable.dtEmp(V.Local.iC).Fica_Withholding!FieldValString,V.DataTable.dtEmp(V.Local.iC).Medi_Wages!FieldValString,V.DataTable.dtEmp(V.Local.iC).Medi_Withholding!FieldValString,"","",V.Local.sFieldVals)
+				'10. Dependant Care benefits, 11. Non qualified plans
+				F.Intrinsic.String.Build("{0}*!*{1}*!*{2}",V.Local.sFieldVals,V.DataTable.dtEmp(V.Local.iC).Dep_care!FieldValString,"",V.Local.sFieldVals)
+
+				V.Local.sCodeA.Set("")
+				V.Local.sCodeB.Set("")
+				V.Local.sCodeC.Set("")
+				V.Local.sCodeD.Set("")
+				V.Local.iAamt.Set("")
+				V.Local.iBamt.Set("")
+				V.Local.iCamt.Set("")
+				V.Local.iDamt.set("")
+				'Looping only four times. Sequence for box 12 has which is a, b, and c.
+				F.Intrinsic.Control.For(V.Local.iC2,1,4,1)
+					F.Intrinsic.String.Build("Employee = '{0}' And Seq = '{1}' And Box = '12'",V.DataTable.dtEmp(V.Local.iC).Employee!FieldValString,V.Local.iC2,V.Local.sFilter) 'create filter
+					F.Data.DataView.SetFilter("dtAddl","dvAddl",V.Local.sFilter) 'set filter
+					F.Intrinsic.Control.If(V.DataView.dtAddl!dvAddl.RowCount,=,1)
+						F.Intrinsic.Control.SelectCase(V.DataView.dtAddl!dvAddl(0).Seq!FieldValLong)
+							F.Intrinsic.Control.Case(1)
+								V.Local.sCodeA.Set(V.DataView.dtAddl!dvAddl(0).Irs_Code!FieldValString)
+								V.Local.iAamt.Set(V.DataView.dtAddl!dvAddl(0).Amount_12!FieldValString)
+							F.Intrinsic.Control.Case(2)
+								V.Local.sCodeB.Set(V.DataView.dtAddl!dvAddl(0).Irs_Code!FieldValString)
+								V.Local.iBamt.Set(V.DataView.dtAddl!dvAddl(0).Amount_12!FieldValString)
+							F.Intrinsic.Control.Case(3)
+								V.Local.sCodeC.Set(V.DataView.dtAddl!dvAddl(0).Irs_Code!FieldValString)
+								V.Local.iCamt.Set(V.DataView.dtAddl!dvAddl(0).Amount_12!FieldValString)
+							F.Intrinsic.Control.Case(4)
+								V.Local.sCodeD.Set(V.DataView.dtAddl!dvAddl(0).Irs_Code!FieldValString)
+								V.Local.iDamt.Set(V.DataView.dtAddl!dvAddl(0).Amount_12!FieldValString)
+						F.Intrinsic.Control.EndSelect
+					F.Intrinsic.Control.Endif
+				F.Intrinsic.Control.Next(V.Local.iC2)
+
+				'Resetting variables since we're storing values to them within the For loop. Don't want to use the previous iteration's value's if the UDTMultiSeekSet doesn't find records		
+				V.Local.sBox14Desc1.Set("")
+				V.Local.iBox14Amt1.Set("")
+				V.Local.sBox14Desc2.Set("")
+				V.Local.iBox14Amt2.Set("")
+				V.local.sChkBx1.Set("")
+				V.Local.sChkBx2.Set("")
+				'Box 13 check boxes, required values are either a "1"  for Yes, or "" for No
+				F.Intrinsic.String.Replace(V.DataTable.dtEmp(V.Local.iC).Retirement_Plan!FieldValString,"Y","2",V.local.sChkBx1)
+				F.Intrinsic.String.Replace(V.DataTable.dtEmp(V.Local.iC).Third_Party_Sick!FieldValString,"Y","3",V.local.sChkBx2)
+
+				'12a,b,c,d, codes and amounts, and Statutory employee, Retirement_Plan, third party sick pay check boxes.
+				F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!*{7}*!*{8}*!*{9}*!*{10}*!*{11}",V.Local.sFieldVals,V.Local.sCodeA,V.Local.iAamt,V.Local.sChkBx1,V.Local.sChkBx2,V.Local.sCodeB,V.Local.iBamt,V.Local.sCodeC,V.Local.iCamt,V.Local.sCodeD,V.Local.iDamt,"",V.Local.sFieldVals)
+
+				'Querying box 14 description and amount fields.
+				V.Local.sBox14Desc1.Set("")
+				F.Intrinsic.String.Build("Employee = '{0}' And Seq = '1' And Box = '14'",V.DataTable.dtEmp(V.Local.iC).Employee!FieldValString,V.Local.sFilter) 'create filter
+				F.Data.DataView.SetFilter("dtAddl","dvAddl",V.Local.sFilter) 'set filter
+				F.Intrinsic.Control.If(V.DataView.dtAddl!dvAddl.RowCount,=,1)
+					F.Intrinsic.String.Build("{0} {1}",V.DataView.dtAddl!dvAddl(0).Box_Desc!FieldValString,V.DataView.dtAddl!dvAddl(0).Amount_14!FieldValString,V.Local.sBox14Desc1)
+				F.Intrinsic.Control.EndIf
+
+				'Querying box 14 description and amount fields for sequence 2.
+				V.Local.sBox14Desc2.Set("")
+				F.Intrinsic.String.Build("Employee = '{0}' And Seq = '2' And Box = '14'",V.DataTable.dtEmp(V.Local.iC).Employee!FieldValString,V.Local.sFilter) 'create filter
+				F.Data.DataView.SetFilter("dtAddl","dvAddl",V.Local.sFilter) 'set filter
+				F.Intrinsic.Control.If(V.DataView.dtAddl!dvAddl.RowCount,=,1)
+					F.Intrinsic.String.Build("{0} {1}",V.DataView.dtAddl!dvAddl(0).Box_Desc!FieldValString,V.DataView.dtAddl!dvAddl(0).Amount_14!FieldValString,V.Local.sBox14Desc2)
+					F.Intrinsic.String.Build("{0}{1}{2}",V.Local.sBox14Desc1,V.Ambient.NewLine,V.Local.sBox14Desc2,V.Local.sBox14Desc1)
+				F.Intrinsic.Control.EndIf
+
+				F.Intrinsic.String.Build("{0}*!*{1}",V.Local.sFieldVals,V.Local.sBox14Desc1,V.Local.sFieldVals)
+
+				'Calling subroutine dedicated to handling the State/Local logic since it's a lot of code.
+				'This will be used within the prin_pdf sub to indicate when to print the instructions page, each employee will have 1 instructions pdf but sometimes an employee could have multiple
+				'W2 forms depending on where they worked previously, so instead of having these instructions page for every single page, we'll just have them for every single employee.
+				F.Intrinsic.Control.CallSub(State_local_values,"FieldVals",V.Local.sFieldVals,"Fields",V.Local.sFields,"iC",V.Local.iC,"HeaderVals",V.Local.sHeaderVals)
+
+				'Merge here and add in W2 Instructions for every employee
+				F.Intrinsic.Math.Add(V.Global.iCounter,1,V.Global.iCounter)
+
+'				F.Intrinsic.Control.If(V.Global.iCounter,=,4)
+'					F.Intrinsic.String.Build("{0}*!*{1}",V.Global.sFileMerge,V.Local.sW2Instructions,V.Global.sFileMerge)
+'				F.Intrinsic.Control.EndIf
+				F.Intrinsic.Control.If(V.Global.P_Forms,=,False)
+					F.Intrinsic.Control.If(V.Local.iCopy,=,5)
+						F.Intrinsic.String.Build("{0}*!*{1}",V.Global.sFileMerge,V.Local.sW2Instructions,V.Global.sFileMerge)
+					F.Intrinsic.Control.EndIf
+				F.Intrinsic.Control.EndIf
+
+			F.Intrinsic.Control.Next(V.Local.iCopy)
+			V.Local.bExit.Set(False)
+			V.Global.iCounter.Set(0)
+		F.Intrinsic.Control.Next(V.Local.iC)
+
+	'Merging Employer copy to the other copies so the employer copies/instructions show up at the end, per Mike/Delores/Ryan's request.
+	'F.Intrinsic.Control.If(V.Screen.Form!chkFedEmpEmployer.Value,=,1)
+	F.Intrinsic.Control.If(V.Screen.Form!chk1Employer.Value,=,1)
+		F.Intrinsic.Control.If(V.Global.sFileMerge,<>,"")
+			F.Intrinsic.Control.If(V.Global.sEmployerFileMerge,<>,"")
+				F.Intrinsic.String.Build("{0}*!*{1}*!*{2}",V.Global.sFileMerge,V.Global.sEmployerFileMerge,V.Local.sW2EmployerInstructions,V.Global.sFileMerge)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Control.If(V.Global.sEmployerFileMerge,<>,"")
+				F.Intrinsic.String.Build("{0}*!*{1}",V.Global.sEmployerFileMerge,V.Local.sW2EmployerInstructions,V.Global.sFileMerge)
+			F.Intrinsic.Control.Endif
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Math.Add(V.Local.iC,1,V.Local.iC)
+	Gui.F_Progress.lblProgress.Caption("Calculating totals")
+	F.Intrinsic.Control.CallSub(Get_grand_totals,"Fields",V.Local.sFields,"iC",V.Local.iC,"HeaderVals",V.Local.sHeaderVals)
+
+	'Printing PDFs
+	F.Intrinsic.Control.CallSub(Print_PDF)
+
+	F.Intrinsic.Control.If(V.Local.iC,>,0)
+		F.Automation.PDF.IsOpen("fW2",V.Local.bCheck)
+		F.Intrinsic.Control.If(V.local.bCheck,=,True)
+			F.Automation.PDF.Close("fW2")
+		F.Intrinsic.Control.Endif
+		'Added 1/26 so that Grand totals page prints last.
+		F.Intrinsic.String.Build("{0}*!*{1}",V.Global.sFileMerge,V.Global.sGFQP,V.Global.sFileMerge)
+		F.Automation.PDF.Open("fW2",V.Local.sPDFDir)
+		F.Automation.PDF.Merge(V.Global.sFileMerge,V.Global.sFileDirRet)
+		F.Automation.PDF.Close("fW2")
+	F.Intrinsic.Control.Else
+		V.Global.sFileDirRet.Set(V.Global.sFileMerge)
+	F.Intrinsic.Control.Endif
+
+	V.Local.sFiles.Declare(String)
+	V.Local.sFile.Declare(String)
+	V.Local.iC.Set(0)
+
+	'**TEST CHECKING IF FILES ARE LOCKED
+	F.Intrinsic.String.Build("{0}\*.*",V.Global.LocalGSSTempDir,V.Local.sFiles)
+	F.Intrinsic.File.GetFileList(V.Local.sFiles,4,V.Local.sFiles)
+	F.Intrinsic.String.Split(V.Local.sFiles,":",V.Local.sFiles)
+
+'Delete functionality is broken.
+'	F.Intrinsic.Control.For(V.Local.iC,0,V.DataTable.dtForms.RowCount--,1)
+'		F.Intrinsic.String.Build("{0}\{1}",V.Global.LocalGSSTempDir,V.Local.sFiles(V.Local.iC),V.Local.sFile)
+'		F.Intrinsic.File.DeleteFile(V.Local.sFile(V.Local.iC))
+'		V.Local.bCheck.Set(True)
+'		'Check to see if file has been deleted.
+'		F.Intrinsic.Control.DoUntil(V.Local.bCheck,=,False)
+'			F.Intrinsic.File.DeleteFile(V.DataTable.dtForms(V.Local.iC).target_name.FieldValString)
+'			F.Intrinsic.File.Exists(V.DataTable.dtForms(V.Local.iC).target_name.FieldValString,V.Local.bCheck)
+'		F.Intrinsic.Control.Loop
+'	F.Intrinsic.Control.Next(V.Local.iC)
+
+	'Close Datviews since we're done
+	F.Intrinsic.Control.CallSub(CloseDataViews_And_DataTables)
+	Gui.F_Progress..Visible(False)
+	'Getting handle ID to open up with a PDF viewer
+	F.Intrinsic.File.GetHandle(V.Local.iHdl)
+	'Opening PDF
+	F.Intrinsic.Task.ShellExec(V.Local.iHdl,"Open",V.Global.sFileDirRet,"","",1)
+F.Intrinsic.Control.Endif
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Get_Header_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.Get_Header.End
+
+Program.Sub.Check_If_Open.Start
+F.Intrinsic.Control.SetErrorHandler("Check_If_Open_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.bY.Declare(Boolean,false)
+V.Local.sRet.Declare(String)
+V.Local.sExt.Declare(String)
+V.Local.sT.Declare(String)
+
+'Check if file exists, if so check if it is open, if so, change file name. 
+F.In.File.Exists(V.Global.sFileDirRet,v.Local.bY)
+F.In.Control.If(V.Lo.bY,=,True)
+	F.In.File.IsFileLocked(V.Global.sFileDirRet,V.Local.bY)
+	F.In.Control.If(V.Local.bY,=,True)
+		F.Intrinsic.UI.Msgbox("File is currently in use by another process. Unable to print if the file is opened. Re-name the file?","Unable to Print",4,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,=,"6")'If Yes
+			F.In.Control.CallSub(cmd1ok_click)
+		F.In.Control.ElseIf(V.Local.sRet,=,"7")'If No
+			F.In.Control.CallSub(unload)
+		F.In.Control.Endif
+	F.In.Control.EndIf
+F.In.Control.Endif
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Check_If_Open_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Check_If_Open.End
+
+Program.Sub.Print_PDF.Start
+V.Local.bCheck.Declare(Boolean,False)
+V.Local.ix.Declare(long)
+V.Local.sPDFDir.Declare(String)
+V.Local.iHdl.Declare(Long)
+V.Local.bRet.Declare(String)
+'F.Intrinsic.String.Build("{0}\Busint\PY_fw2.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+F.Intrinsic.Control.If(V.Global.P_Forms,=,True)
+	F.Intrinsic.String.Build("{0}\Busint\PY_fw2_P.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Build("{0}\Busint\PY_fw2.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+F.Intrinsic.Control.EndIf
+
+F.Automation.PDF.IsOpen("fW2",V.Local.bCheck)
+F.Intrinsic.Control.If(V.local.bCheck,=,True)
+	F.Automation.PDF.Close("fW2")
+F.Intrinsic.Control.Endif
+F.Intrinsic.Control.If(V.DataTable.dtForms.RowCount,>,0)	
+
+	'01/05/17: Change Locality Codes in For Loop. Check to see if in PPT_W2_LOCAL. If it is, use the PPT_W2_LOCAL.Replacement as Locality Name
+	V.Local.sql.Declare(String)
+	V.Local.ret.Declare(String)
+	F.Intrinsic.Control.For(V.Local.ix,0,V.DataTable.dtForms.RowCount--,1)
+		F.Intrinsic.String.Split(Variable.DataTable.dtForms(V.Local.ix).Field_Values!FieldValString,"*!*",V.Local.ret)
+'		F.Intrinsic.String.Build("Select Replacement From PPT_W2_LOCAL WHERE Local_Code = '{0}'",V.Local.ret(43).Trim,V.Local.sql)
+		F.Intrinsic.String.Build("Select Replacement From PPT_W2_LOCAL WHERE Local_Code = '{0}'",V.Local.ret(36).Trim,V.Local.sql)
+		F.ODBC.Connection!conx.OpenLocalRecordsetRW("rst",V.Local.sql)
+		F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,FALSE)
+'			V.Local.ret(43).Set(V.ODBC.conx!rst.FieldValLTrim!Replacement)
+			v.Local.ret(36).Set(v.ODBC.conx!rst.FieldValTrim!Replacement)						
+		F.Intrinsic.Control.EndIf
+		F.ODBC.conx!rst.Close
+		'also check 43 tis the second code. 
+		F.Intrinsic.String.Build("Select Replacement From PPT_W2_LOCAL WHERE Local_Code = '{0}'",V.Local.ret(43).Trim,V.Local.sql)
+		F.ODBC.Connection!conx.OpenLocalRecordsetRW("rst",V.Local.sql)
+		F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,FALSE)
+			V.Local.ret(43).Set(V.ODBC.conx!rst.FieldValLTrim!Replacement)			
+		F.Intrinsic.Control.EndIf		
+		F.ODBC.conx!rst.Close
+		F.Intrinsic.String.Join(V.Local.ret,"*!*",V.Local.ret)
+		F.Data.DataTable.SetValue("dtForms",V.Local.ix,"Field_Values",V.Local.ret)
+	F.Intrinsic.Control.Next(V.Local.ix)
+
+	'For each record within forms data table. use set form fields pdf dunctions.
+	F.Intrinsic.Control.For(V.Local.ix,0,V.DataTable.dtForms.RowCount--,1)
+		'Check if record is a total's page. If it is, just print on normal forms.
+		F.Intrinsic.Control.If(V.Global.P_Forms,=,True)
+			V.Local.bRet.Set(False) 'reset bool
+			F.Intrinsic.String.IsInString(V.DataTable.dtForms(V.Local.ix).field_values!FieldValString,"**COMPANY TOTALS**",True,V.Local.bRet)
+			F.Intrinsic.Control.If(V.Local.bRet,=,True)
+				F.Intrinsic.String.Build("{0}\Busint\PY_fw2.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("{0}\Busint\PY_fw2_P.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+			F.Intrinsic.Control.EndIf					
+		F.Intrinsic.Control.EndIf
+
+		F.Automation.PDF.Open("fW2",V.Local.sPDFDir)
+		F.Automation.PDF.SetFormFields("fW2",V.DataTable.dtForms(V.Local.ix).target_name!FieldValString,V.DataTable.dtForms(V.Local.ix).field_names!FieldValString,V.DataTable.dtForms(V.Local.ix).field_values!FieldValString,True)
+		F.Automation.PDF.Close("fW2")
+	F.Intrinsic.Control.Next(V.Local.ix)
+F.Intrinsic.Control.EndIf
+
+Program.Sub.Print_PDF.End
+
+Program.Sub.CreateDataViews_And_DataTables.Start
+F.Intrinsic.Control.If(V.DataTable.dtAddl.Exists,=,True)
+	F.Data.DataView.Create("dtAddl","dvAddl")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtStateLocal.Exists,=,True)
+	F.Data.DataView.Create("dtStateLocal","dvStateLocal") 
+F.Intrinsic.Control.EndIf
+
+'Create a data table for our form fields.
+F.Data.DataTable.Create("dtForms",True)
+F.Data.DataTable.AddColumn("dtForms","target_name","string")
+F.Data.DataTable.AddColumn("dtForms","field_names","string")
+F.Data.DataTable.AddColumn("dtForms","field_values","string")
+
+Program.Sub.CreateDataViews_And_DataTables.End
+
+Program.Sub.CloseDataViews_And_DataTables.Start
+F.Intrinsic.Control.If(V.DataTable.dtStateLocal.Exists,=,True)
+	F.Data.DataView.Close("dtStateLocal","dvStateLocal")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtAddl.Exists,=,True)
+	F.Data.DataView.Close("dtAddl","dvAddl")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.dtForms.Exists,=,True)
+	F.Data.DataTable.Close("dtForms")
+F.Intrinsic.Control.EndIf
+Program.Sub.CloseDataViews_And_DataTables.End
+
+Program.Sub.Get_Grand_Totals.Start
+F.Intrinsic.Control.SetErrorHandler("Get_Grand_Totals_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+V.Local.sPDFDir.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.sFields.Declare(String)
+V.Local.sHeaderVals.Declare(String)
+V.Local.sFieldVals.Declare(String)
+V.Local.sBx12.Declare(Float)
+V.Local.sBx12GCodea.Declare(String)
+V.Local.sBx12Ga.Declare(Float)
+V.Local.sBx12a.Declare(Float)
+V.Local.sBx12Codea.Declare(String)
+V.Local.sBx12b.Declare(Float)
+V.Local.sBx12Codeb.Declare(String)
+V.Local.sBx12c.Declare(Float)
+V.Local.sBx12Codec.Declare(String)
+V.Local.sBx12d.Declare(Float)
+V.Local.sBx12Coded.Declare(String)
+V.Local.sBx12Desc.Declare(String)
+V.Local.iC.Declare(Long)
+V.Local.iOrd.Declare(Long)
+V.Local.iCount.Declare(Long)
+V.Local.iStCount.Declare(Long)
+V.Local.iLocCount.Declare(Long)
+V.Local.sFieldVals2.Declare(String)
+V.local.sFieldVals3.Declare(String)
+V.Local.sHeaderVals.Set(V.Args.HeaderVals)
+V.Local.sNoHeadGTotals.Declare(String)
+V.Local.sFields.Set(V.Args.Fields)
+V.Local.i.Declare(Long)
+V.Local.i3.Declare(Long)
+V.Local.iC.Set(V.Args.iC)
+V.Local.sPrevTax.Declare(String)
+V.Local.sPrevState.Declare(String)
+V.Local.sPrevCode.Declare(String)
+V.Local.sUDTFields.Declare(String)
+V.Local.sUDTVals.Declare(String)
+V.uGlobal.uGTotals.Redim(-1,-1)
+V.uGlobal.uStateTotal.Redim(-1,-1)
+V.uGlobal.uLocalTotal.Redim(-1,-1)
+V.uGlobal.uEmpTotal.Redim(-1,-1)
+V.uGlobal.uBox12.Redim(-1,-1)
+'V.uGlobal.uBox12Total.Redim(-1,-1)
+V.Local.iPrev.Declare(Long)
+V.Local.sText.Declare(String)
+V.Local.sBox.Declare(String)
+V.Local.sIrs_Code.Declare(String)
+V.Local.fAmount.Declare(Float)
+V.Local.sBoxDesc.Declare(String)
+V.Local.sState.Declare(String)
+V.Local.i2.Declare(Long)
+V.Local.iSum.Declare(Float)
+V.Local.bExitLoop.Declare(Boolean)
+V.Local.iBxNum.Declare(Long)
+'Used for currency formatting, currently the currency formatting won't work on udt elements
+V.Local.fVal1.Declare(Float)
+V.Local.fVal2.Declare(Float)
+V.Local.fVal3.Declare(Float)
+V.Local.fVal4.Declare(Float)
+V.Local.fVal5.Declare(Float)
+V.Local.fVal6.Declare(Float)
+V.Local.fVal7.Declare(Float)
+V.Local.fVal8.Declare(Float)
+V.Local.fVal9.Declare(Float)
+V.Local.fVal10.Declare(Float)
+
+'Used for formatting string values
+V.Local.sVal1.Declare(String)
+V.Local.sVal2.Declare(String)
+V.Local.sVal3.Declare(String)
+V.Local.sVal4.Declare(String)
+V.Local.sVal5.Declare(String)
+V.Local.sVal6.Declare(String)
+V.Local.sVal7.Declare(String)
+V.Local.sVal8.Declare(String)
+
+'Used for incrementing
+V.Local.iRec.Declare(Long)
+'For grand totals
+V.Local.fGRANDBx12a.Declare(Float)
+
+'Getting rid of uneccessary header info like SSN, and individual employee name since this will be the Company's Totals w-2 copy.
+F.Intrinsic.String.Split(V.Local.sHeaderVals,"*!*",V.Local.sHeaderVals)
+'Delete SSN, Employee info, set blanks within specified array elements.
+V.Local.sHeaderVals(0).Set("")
+V.Local.sHeaderVals(4).Set("")
+V.Local.sHeaderVals(5).Set("")
+V.Local.sHeaderVals(6).Set("")
+V.Local.sHeaderVals(7).Set("")
+'Join back together array back togther with *!* delimiter
+F.Intrinsic.String.Join(V.Local.sHeaderVals,"*!*",V.Local.sHeaderVals)
+
+'1/13/15 Logic
+'Getting state totals..
+F.Intrinsic.String.Build("Select Distinct State, Tax_ID From Y_PY_W2_ST Where Runid = '{0}' And Logid = '{1}'",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordsetRO("rst",V.Local.sSQL)
+F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,False)
+	F.Intrinsic.Control.DoUntil(V.ODBC.conx!rst.EOF,=,True)
+		'If records exist, getting the sum of each state.
+		F.Intrinsic.String.Build("Select Sum(Wages) As Wages, Sum(Withholding) As Withholding From Y_PY_W2_ST Where Runid = '{0}' and Logid = '{1}' and State = '{2}'",V.Global.iRunid,V.Global.iLogID,V.ODBC.conx!rst.FieldVal!State,V.Local.sSQL)
+		F.ODBC.Connection!conx.OpenRecordsetRO("rstState",V.Local.sSQL)
+		F.Intrinsic.Control.If(V.ODBC.conx!rstState.EOF,=,False)
+			F.Intrinsic.Variable.LoadUDTFromRecordset("conx","rstState","V.uGlobal.uStateTotal",True,0)
+			'Setting state and Tax id within field udt references
+			V.uGlobal.uStateTotal(V.Local.iOrd)!State.Set(V.ODBC.conx!rst.FieldVal!State)
+			V.uGlobal.uStateTotal(V.Local.iOrd)!Tax_ID.Set(V.ODBC.conx!rst.FieldValTrim!Tax_ID)
+			F.Intrinsic.Math.Add(V.Local.iOrd,1,V.Local.iOrd)
+		F.Intrinsic.Control.EndIf
+		F.ODBC.conx!rstState.Close
+	F.ODBC.conx!rst.MoveNext
+	F.Intrinsic.Control.Loop
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+V.Local.iOrd.Set(0)
+
+'Getting local totals
+F.Intrinsic.String.Build("Select Distinct State, Local_Code from Y_PY_W2_LOC Where Runid = '{0}' and Logid = '{1}'",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordsetRO("rst",V.Local.sSQL)
+F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,False)
+	'If Local Codes exist, get totals
+	F.Intrinsic.Control.DoUntil(V.ODBC.conx!rst.EOF,=,True)
+		F.Intrinsic.String.Build("Select Sum(Wages) as Wages, Sum(Withholding) as Withholding from Y_PY_W2_LOC Where Runid = '{0}' and Logid = '{1}' and State = '{2}' and Local_Code = '{3}'",V.Global.iRunid,V.Global.iLogID,V.ODBC.conx!rst.FieldVal!State,V.ODBC.conx!rst.FieldValTrim!Local_Code,V.Local.sSQL)
+		F.ODBC.Connection!conx.OpenRecordsetRO("rstLocal",V.Local.sSQL)
+		F.Intrinsic.Control.If(V.ODBC.conx!rstLocal.EOF,=,False)
+			'Sum totals and throw values
+			F.Intrinsic.Variable.LoadUDTFromRecordset("conx","rstLocal","V.uGlobal.uLocalTotal",True,0)
+			V.uGlobal.uLocalTotal(V.Local.iOrd)!State.Set(V.ODBC.conx!rst.FieldVal!State)
+			V.uGlobal.uLocalTotal(V.Local.iOrd)!Local_Code.Set(V.ODBC.conx!rst.FieldValTrim!Local_Code)
+			F.Intrinsic.Math.Add(V.Local.iOrd,1,V.Local.iOrd)
+		F.Intrinsic.Control.EndIf
+		F.ODBC.conx!rstLocal.Close
+	F.ODBC.conx!rst.MoveNext
+	F.Intrinsic.Control.Loop
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+V.Local.iOrd.Set(0)
+
+'Getting grand total of IRS Codes, this will be for each IRS Codes, up to for (currently the max number of IRS codes the system supports)
+'If anyone needs all four grand totals for all four IRS codes, just uncomment the body of code below. Ensure to comment out the body of code just below the "else" note.
+
+'F.Intrinsic.String.Build("Select Distinct IRS_Code From Y_PY_W2_ADDL Where Runid = '{0}' and Logid = '{1}'",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+'F.ODBC.Connection!conx.OpenRecordSetRO("rst1",V.Local.sSQL)
+'F.Intrinsic.Control.If(V.ODBC.conx!rst1.EOF,=,False)
+'	F.Intrinsic.Control.DoUntil(V.ODBC.conx!rst1.EOF,=,True)
+'		F.Intrinsic.String.Build("Select SUM(AMOUNT_12) As Amount_12 From Y_PY_W2_ADDL Where IRS_CODE = '{0}' And RunID = '{1}'",V.ODBC.conx!rst1.FieldValTrim!IRS_CODE,V.Global.iRunid,V.Local.sSQL)
+'		F.ODBC.Connection!conx.OpenRecordSetRO("rst",V.Local.sSQL)
+'		F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,False)
+'			F.Intrinsic.Control.SelectCase(V.Local.iBxNum)
+'				'Box 12 a
+'				F.Intrinsic.Control.Case(0)
+'					V.Local.sBx12a.Set(V.ODBC.conx!rst.FieldValTrim!Amount_12)
+'					V.Local.sBx12Codea.Set(V.ODBC.conx!rst1.FieldValTrim!IRS_Code)	
+'				'Box 12 b
+'				F.Intrinsic.Control.Case(1)
+'					V.Local.sBx12b.Set(V.ODBC.conx!rst.FieldValTrim!Amount_12)
+'					V.Local.sBx12Codeb.Set(V.ODBC.conx!rst1.FieldValTrim!IRS_Code)				
+'				'Box 12 c
+'				F.Intrinsic.Control.Case(2)
+'					V.Local.sBx12c.Set(V.ODBC.conx!rst.FieldValTrim!Amount_12)
+'					V.Local.sBx12Codec.Set(V.ODBC.conx!rst1.FieldValTrim!IRS_Code)					
+'				'Box 12 d
+'				F.Intrinsic.Control.Case(3)
+'					V.Local.sBx12d.Set(V.ODBC.conx!rst.FieldValTrim!Amount_12)
+'					V.Local.sBx12Coded.Set(V.ODBC.conx!rst1.FieldValTrim!IRS_Code)				
+'			F.Intrinsic.Control.EndSelect	
+'		F.Intrinsic.Control.EndIf
+'		F.ODBC.conx!rst.Close
+'		F.Intrinsic.Math.Add(V.Local.iBxNum,1,V.Local.iBxNum)
+'	F.ODBC.conx!rst1.MoveNext
+'	F.Intrinsic.Control.Loop
+'F.Intrinsic.Control.EndIf
+'F.ODBC.conx!rst1.Close
+
+'Else the below code will sum up amounts of all IRS Codes and put them in Box 12 a, regardless of code per spec.
+F.Intrinsic.String.Build("Select SUM(AMOUNT_12) As Amount_12 From Y_PY_W2_ADDL Where RunID = '{0}'",V.Global.iRunid,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordSetRO("rst",V.Local.sSQL)
+F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,False)
+	V.Local.fGRANDBx12a.Set(V.ODBC.conx!rst.FieldValTrim!Amount_12)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+
+'Getting company grand totals here for boxes 1-10.
+'F.Intrinsic.String.Build("Select Sum(Fed_Wages) as Fed_Wages, Sum(Fed_Withholding) as Fed_Withholding, Sum(Fica_Wages) as Fica_Wages, Sum(Fica_Withholding) as Fica_Withholding, Sum(Medi_Wages) as Medi_Wages, Sum(Medi_Withholding) as Medi_Withholding, Sum(Dep_Care) as Dep_Care from Y_PY_W2_ST as a left join Y_PY_W2_EMP as b on a.Employee = b.Employee Where a.Runid = '{0}' and a.Logid = '{1}'",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+F.Intrinsic.String.Build("Select Sum(Fed_Wages) as Fed_Wages, Sum(Fed_Withholding) as Fed_Withholding, Sum(Fica_Wages) as Fica_Wages, Sum(Fica_Withholding) as Fica_Withholding, Sum(Medi_Wages) as Medi_Wages, Sum(Medi_Withholding) as Medi_Withholding, Sum(Dep_Care) as Dep_Care from Y_PY_W2_EMP Where Runid = '{0}' and Logid = '{1}'",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordsetRO("rst2",V.Local.sSQL)
+F.Intrinsic.Control.If(V.ODBC.conx!rst2.EOF,=,False)
+	F.Intrinsic.Variable.LoadUDTFromRecordset("conx","rst2","V.uGlobal.uGTotals",True,0)
+F.Intrinsic.Control.Endif
+F.ODBC.conx!rst2.Close
+
+'Getting Company totals for state
+F.Intrinsic.String.Build("Select Sum(Wages) as Wages, Sum(Withholding) as Withholding from Y_PY_W2_ST Where Runid = '{0}' and Logid = '{1}'",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordsetRO("rst2",V.Local.sSQL)
+F.Intrinsic.Control.If(V.ODBC.conx!rst2.EOF,=,False)
+	F.Intrinsic.Variable.LoadUDTFromRecordset("conx","rst2","V.uGlobal.uGStateTotals",True,0)
+F.Intrinsic.Control.Endif
+F.ODBC.conx!rst2.Close
+
+V.Local.iOrd.Set(0)
+V.Local.sUDTFields.Set("Box*!*Irs_Code*!*State*!*Amount_12*!*Box_Desc")
+
+'Get distinct state, for each one, get distinct IRS code, then sum up the amount_12 field
+'1/28/16 Commented this out since we're going to have static totals for the box 12 amounts for state totals and grand totals
+'F.Intrinsic.String.Build("Select Distinct State from Y_PY_W2_ST Where Runid = '{0}' and Logid = '{1}'",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+'F.ODBC.Connection!conx.OpenRecordsetRO("rst",V.Local.sSQL)
+'F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,False)
+
+'	F.Intrinsic.Control.DoUntil(V.ODBC.conx!rst.EOF,=,True)
+'	F.Intrinsic.String.Build("Select Distinct Box, IRS_CODE, B.State From Y_PY_W2_ADDL as a Left Join Y_PY_W2_ST as b on a.employee = b.employee Where a.Runid = '{0}' and a.Logid = '{1}' and  State = '{2}'",V.Global.iRunid,V.Global.iLogID,V.ODBC.conx!rst.FieldVal!State,V.Local.sSQL)
+'	F.ODBC.Connection!conx.OpenRecordsetRO("rst2",V.Local.sSQL)
+
+'	F.Intrinsic.Control.If(V.ODBC.conx!rst2.EOF,=,False)
+'		F.Intrinsic.Control.DoUntil(V.ODBC.conx!rst2.EOF,=,True)
+'			F.Intrinsic.String.Build("Select Sum(Amount_12) as Amount_12 From Y_PY_W2_ADDL as a Left Join Y_PY_W2_ST as b on a.Employee = b.Employee and a.Runid = b.Runid and a.Logid = b.Logid Where IRS_CODE = '{0}' And a.RunID = '{1}' and a.Logid = '{2}' and State = '{3}'",V.ODBC.conx!rst2.FieldValTrim!IRS_CODE,V.Global.iRunid,V.Global.iLogID,V.ODBC.conx!rst.FieldVal!State,V.Local.sSQL)
+'			F.ODBC.Connection!conx.OpenRecordsetRO("rst3",V.Local.sSQL)
+'			
+'			F.Intrinsic.Control.If(V.ODBC.conx!rst3.EOF,=,False)
+'				F.Intrinsic.Control.DoUntil(V.ODBC.conx!rst3.EOF,=,True)
+'					V.local.fAmount.Set(V.ODBC.conx!rst3.FieldValTrim!Amount_12)
+'					F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*",V.ODBC.conx!rst2.FieldValTrim!Box,V.ODBC.conx!rst2.FieldValTrim!IRS_CODE,V.ODBC.conx!rst.FieldValTrim!State,V.Local.fAmount.Currency,V.Local.sUDTVals)
+'					F.Intrinsic.Variable.LoadUDTFromString(V.uGlobal.uBox12Total,V.local.sUDTFields,V.Local.sUDTVals,V.Ambient.NewLine,"*!*",True)
+'				F.ODBC.conx!rst3.MoveNext
+'				F.Intrinsic.Control.Loop
+'			F.Intrinsic.Control.Endif
+'			
+'			F.ODBC.conx!rst3.Close
+'		F.ODBC.conx!rst2.MoveNext
+'		F.Intrinsic.Control.Loop
+'	F.Intrinsic.Control.Endif
+'	
+'	F.ODBC.conx!rst2.Close
+'F.ODBC.conx!rst.MoveNext
+'F.Intrinsic.Control.Loop
+'F.Intrinsic.Control.Endif
+'F.ODBC.conx!rst.Close
+'F.Intrinsic.Debug.InvokeDebugger
+
+'1/28/16, Getting Box 12 Codes and totals for each, these values will remain the same for each state total and grand total.
+F.Intrinsic.String.Build("Select Distinct IRS_CODE From  Y_PY_W2_ADDL Where RUNID = '{0}' and LOGID = '{1}' and Box = '12' And IRS_CODE <> ''",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordsetRO("rst1",V.Local.sSQL)
+
+F.Intrinsic.Control.If(V.ODBC.conx!rst1.EOF,=,False)
+	F.Intrinsic.Control.DoUntil(V.ODBC.conx!rst1.EOF,=,True)
+		'Get totals for each IRS Code regardless of state
+		F.Intrinsic.String.Build("Select SUM(Amount_12) as Amount_12 from Y_PY_W2_ADDL Where RUNID = '{0}' and LOGID = '{1}' and Box = '12' and IRS_CODE = '{2}'",V.Global.iRunid,V.Global.iLogID,V.ODBC.conx!rst1.FieldValTrim!IRS_CODE,V.Local.sSQL)
+		F.ODBC.Connection!conx.OpenRecordsetRO("rst2",V.Local.sSQL)
+		F.Intrinsic.Control.If(V.ODBC.conx!rst2.EOF,=,False)
+			'since users only can have up to for IRS codes, we'll just use this select case.
+			F.Intrinsic.Control.SelectCase(V.Local.iRec)
+				F.Intrinsic.Control.Case(0)
+					V.Local.sBx12a.Set(V.ODBC.conx!rst2.FieldValTrim!Amount_12)
+					V.Local.sBx12Codea.Set(V.ODBC.conx!rst1.FieldValTrim!IRS_CODE)
+				'Box 12b
+				F.Intrinsic.Control.Case(1)
+					V.Local.sBx12b.Set(V.ODBC.conx!rst2.FieldValTrim!Amount_12)
+					V.Local.sBx12Codeb.Set(V.ODBC.conx!rst1.FieldValTrim!IRS_CODE)
+				'Box 12c
+				F.Intrinsic.Control.Case(2)
+					V.Local.sBx12c.Set(V.ODBC.conx!rst2.FieldValTrim!Amount_12)
+					V.Local.sBx12Codec.Set(V.ODBC.conx!rst1.FieldValTrim!IRS_CODE)
+				'Box 12d
+				F.Intrinsic.Control.Case(3)
+					V.Local.sBx12d.Set(V.ODBC.conx!rst2.FieldValTrim!Amount_12)
+					V.Local.sBx12Coded.Set(V.ODBC.conx!rst1.FieldValTrim!IRS_CODE)
+			F.Intrinsic.Control.EndSelect
+			'incrementing for later on in this loop
+			F.Intrinsic.Math.Add(V.Local.iRec,1,V.Local.iRec)
+		F.Intrinsic.Control.Endif
+		F.ODBC.conx!rst2.Close
+
+		F.ODBC.conx!rst1.MoveNext
+	F.Intrinsic.Control.Loop
+F.Intrinsic.Control.Endif
+F.ODBC.conx!rst1.Close
+
+'Deletes blank values
+F.Intrinsic.Variable.UDTMultiFlag(V.uGlobal.uBox12Total!Box,"")
+F.Intrinsic.Variable.UDTDeleteFlagged(V.uGlobal.uBox12Total)
+
+'Pull states from table below
+F.Intrinsic.String.Build("select Distinct State from Y_PY_W2_ST Where Runid = '{0}' and Logid = '{1}' Order by State",V.Global.iRunid,V.Global.iLogID,V.Local.sSQL)
+F.ODBC.Connection!conx.OpenRecordsetRO("rst2",V.Local.sSQL)
+F.Intrinsic.Control.If(V.ODBC.conx!rst2.EOF,=,False)
+	F.Intrinsic.Variable.LoadUDTFromRecordset("conx","rst2","V.uGlobal.uDistinctState",True,0)
+F.Intrinsic.Control.Endif
+F.ODBC.conx!rst2.Close
+
+'Check to see if unique state are being pulled, then delete any duplicates
+F.Intrinsic.Variable.UDTMultiFlagDuplicates(V.uGlobal.uDistinctState!State)
+F.Intrinsic.Variable.UDTDeleteFlagged(V.uGlobal.uDistinctState)
+'123456
+
+'For each state, create grand totals.
+F.Intrinsic.Control.If(V.uGlobal.uDistinctState.Ubound,<>,-1)
+
+	F.Intrinsic.Control.For(V.Local.i,V.uGlobal.uDistinctState.LBound,V.uGlobal.uDistinctState.UBound,1)
+		F.Intrinsic.Control.If(V.uGlobal.uDistinctState(V.Local.i)!State,=,"AL")
+		F.Intrinsic.Control.EndIf
+
+		'If blank states found, skip.
+		V.uGlobal.uBox12TotalCpy.Redim(-1,-1)
+		V.uGlobal.uEmpTotalCpy.Redim(-1,-1)
+		V.uGlobal.uLocalTotalCpy.Redim(-1,-1)
+		V.uGlobal.uStateTotalCpy.Redim(-1,-1)
+
+		'Copying specific states to copy udt.
+		F.Intrinsic.Variable.UDTMultiFlag(V.uGlobal.uBox12Total!State,V.uGlobal.uDistinctState(V.Local.i)!State)
+		F.Intrinsic.Variable.UDTCopyFlagged(V.uGlobal.uBox12Total,V.uGlobal.uBox12TotalCpy,False)
+
+		F.Intrinsic.Variable.UDTMultiFlag(V.uGlobal.uStateTotal!State,V.uGlobal.uDistinctState(V.Local.i)!State)
+		F.Intrinsic.Variable.UDTCopyFlagged(V.uGlobal.uStateTotal,V.uGlobal.uStateTotalCpy,False)
+
+		'Checking if data is present
+		F.Intrinsic.Control.If(V.uGlobal.uGTotals.UBound,=,-1)
+			F.Intrinsic.Control.If(V.uGlobal.uStateTotalCpy.UBound,=,-1)
+				F.Intrinsic.Control.Next(V.Local.i)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.If(V.uGlobal.uBox12TotalCpy.UBound,=,-1)
+			V.uGlobal.uBox12TotalCpy.Redim(0,0)
+		F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.If(V.uGlobal.uEmpTotalCpy.UBound,=,-1)
+			V.uGlobal.uEmpTotalCpy.Redim(0,0)
+		F.Intrinsic.Control.EndIf
+
+		'Unflagging so as to not copy again
+		F.Intrinsic.Variable.UDTUnFlagAll(V.uGlobal.uBox12Total)
+		F.Intrinsic.Variable.UDTUnFlagAll(V.uGlobal.uStateTotal)
+		F.Intrinsic.Variable.UDTUnFlagAll(V.uGlobal.uLocalTotal)
+		F.Intrinsic.Variable.UDTUnFlagAll(V.uGlobal.uEmpTotal)
+
+		'Getting box 12 Codes and amounts
+		'F.Intrinsic.Control.If(V.Local.i,<>,0)
+		'	'Resetting for each itteration
+		'	V.Local.sBx12a.Set("")
+		'	V.Local.sBx12Codea.Set("")
+		'	V.Local.sBx12b.Set("")
+		'	V.Local.sBx12Codeb.Set("")
+		'	V.Local.sBx12c.Set("")
+		'	V.Local.sBx12Codec.Set("")
+		'	V.Local.sBx12d.Set("")
+		'	V.Local.sBx12Coded.Set("")
+		'	
+		'	
+		'	F.Intrinsic.Control.If(V.uGlobal.uBox12TotalCpy.UBound,<>,-1)
+		'		F.Intrinsic.Control.For(V.Local.i3,V.uGlobal.uBox12TotalCpy.LBound,V.uGlobal.uBox12TotalCpy.UBound,1)
+		'			F.Intrinsic.Control.SelectCase(V.Local.i3)
+		'				'Box 12a
+		'				F.Intrinsic.Control.Case(0)
+		'					V.Local.sBx12a.Set(V.uGlobal.uBox12TotalCpy(V.Local.i3)!Amount_12.Float)
+		'					V.Local.sBx12Codea.Set(V.uGlobal.uBox12TotalCpy(V.Local.i3)!Irs_Code)
+		'				'Box 12b
+		'				F.Intrinsic.Control.Case(1)
+		'					V.Local.sBx12b.Set(V.uGlobal.uBox12TotalCpy(V.Local.i3)!Amount_12.Float)
+		'					V.Local.sBx12Codeb.Set(V.uGlobal.uBox12TotalCpy(V.Local.i3)!Irs_Code)
+		'				'Box 12c
+		'				F.Intrinsic.Control.Case(2)
+		'					V.Local.sBx12c.Set(V.uGlobal.uBox12TotalCpy(V.Local.i3)!Amount_12.Float)
+		'					V.Local.sBx12Codec.Set(V.uGlobal.uBox12TotalCpy(V.Local.i3)!Irs_Code)
+		'				'Box 12d
+		'				F.Intrinsic.Control.Case(3)
+		'					V.Local.sBx12d.Set(V.uGlobal.uBox12TotalCpy(V.Local.i3)!Amount_12.Float)
+		'					V.Local.sBx12Coded.Set(V.uGlobal.uBox12TotalCpy(V.Local.i3)!Irs_Code)
+		'			F.Intrinsic.Control.EndSelect
+		'		F.Intrinsic.Control.Next(V.Local.i3)
+		'	F.Intrinsic.Control.EndIf
+		'F.Intrinsic.Control.EndIf
+
+
+
+		'Having to set these values this way since .Currecny to udt elements is currently not working.
+		V.Local.fVal1.Set(V.uGlobal.uGTotals(0)!Fed_Wages)
+		V.Local.fVal2.Set(V.uGlobal.uGTotals(0)!Fed_Withholding)
+		V.Local.fVal3.Set(V.uGlobal.uGTotals(0)!Fica_Wages)
+		V.Local.fVal4.Set(V.uGlobal.uGTotals(0)!Fica_Withholding)
+		V.Local.fVal5.Set(V.uGlobal.uGTotals(0)!Medi_Wages)
+		V.Local.fVal6.Set(V.uGlobal.uGTotals(0)!Medi_Withholding)
+		V.Local.fVal7.Set(V.uGlobal.uGTotals(0)!Dep_care)
+
+		F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!**!**!*{7}",V.Local.sHeaderVals,V.Local.fVal1.Currency,V.Local.fVal2.Currency,V.Local.fVal3.Currency,V.Local.fVal4.Currency,V.Local.fVal5.Currency,V.Local.fVal6.Currency,V.Local.fVal7.Currency,V.Local.sFieldVals)
+		V.Local.fVal1.Set(0)
+		V.Local.fVal2.Set(0)
+		V.Local.fVal3.Set(0)
+		V.Local.fVal4.Set(0)
+		V.Local.fVal5.Set(0)
+		V.Local.fVal6.Set(0)
+		V.Local.fVal7.Set(0)
+
+		V.Local.sVal1.Set("")
+		V.Local.sVal2.Set("")
+		V.Local.sVal3.Set("")
+		V.Local.sVal4.Set("")
+
+		'Formatting Box 12 values so no "0.00" values will show up when no IRS codes are present.
+		F.Intrinsic.Control.If(V.Local.sBx12a,<>,0,"and",V.Local.sBx12Codea,<>,"")
+			V.Local.sVal1.Set(V.Local.sBx12a.Currency)
+		F.Intrinsic.Control.Else
+			V.Local.sVal1.Set("")
+		F.Intrinsic.Control.EndIf
+
+		'Box 12 b
+		F.Intrinsic.Control.If(V.Local.sBx12b,<>,0,"and",V.Local.sBx12Codeb,<>,"")
+			V.Local.sVal2.Set(V.Local.sBx12b.Currency)
+		F.Intrinsic.Control.Else
+			V.Local.sVal2.Set("")
+		F.Intrinsic.Control.EndIf
+
+		'Box 12 c
+		F.Intrinsic.Control.If(V.Local.sBx12c,<>,0,"and",V.Local.sBx12Codec,<>,"")
+			V.Local.sVal3.Set(V.Local.sBx12c.Currency)
+		F.Intrinsic.Control.Else
+			V.Local.sVal3.Set("")
+		F.Intrinsic.Control.EndIf
+
+		'Box 12 d
+		F.Intrinsic.Control.If(V.Local.sBx12d,<>,0,"and",V.Local.sBx12Coded,<>,"")
+			V.Local.sVal4.Set(V.Local.sBx12d.Currency)
+		F.Intrinsic.Control.Else
+			V.Local.sVal4.Set("")
+		F.Intrinsic.Control.EndIf
+
+		'Setting box 12 values.
+		F.Intrinsic.Control.If(V.Local.i,<>,0)
+			F.Intrinsic.String.Build("{0}*!**!*{1}*!*{2}",V.Local.sFieldVals,V.Local.sBx12Codea,V.Local.sVal1,V.Local.sFieldVals)
+			F.Intrinsic.String.Build("{0}*!**!**!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!**!*",V.Local.sFieldVals,V.Local.sBx12Codeb,V.Local.sVal2,V.Local.sBx12Codec,V.Local.sVal3,V.Local.sBx12Coded,V.Local.sVal4,V.Local.sFieldVals)
+		F.Intrinsic.Control.Else
+			'F.Intrinsic.Control.If(V.Local.sGRANDBx12a,<>,0)
+			V.Local.sVal1.Set(V.Local.fGRANDBx12a.Currency)
+			'F.Intrinsic.Control.Else
+			'	V.Local.sVal1.Set("")
+			'F.Intrinsic.Control.EndIf
+			F.Intrinsic.String.Build("{0}*!**!**!*{1}",V.Local.sFieldVals,V.Local.sVal1,V.Local.sFieldVals)
+			F.Intrinsic.String.Build("{0}*!**!**!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!**!*",V.Local.sFieldVals,"","","","","","",V.Local.sFieldVals)
+		F.Intrinsic.Control.Endif
+
+		F.Intrinsic.Control.If(V.uGlobal.uStateTotalCpy.UBound,=,-1)
+			F.Intrinsic.Control.If(V.uGlobal.uLocalTotalCpy.UBound,=,-1)
+				F.Intrinsic.String.Build("{0}*!**!**!**!**!**!**!**!**!**!**!**!**!**!**!*{1}",V.Local.sFieldVals,V.Global.iYr,V.local.sFieldVals2)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Control.If(V.uGlobal.uLocalTotalCpy.UBound,=,-1)
+				V.Local.fVal1.Set(V.uGlobal.uStateTotalCpy(0)!Wages)
+				V.Local.fVal2.Set(V.uGlobal.uStateTotalCpy(0)!Withholding)
+				 F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!**!**!**!**!**!**!**!**!**!**!*{5}",V.Local.sFieldVals,V.uGlobal.uStateTotalCpy(0)!State,V.uGlobal.uStateTotalCpy(0)!Tax_ID,V.Local.fVal1.Currency,V.Local.fVal2.Currency,V.Global.iYr,V.local.sFieldVals2)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!*",V.Local.sFieldVals,V.uGlobal.uStateTotalCpy(0)!State,V.uGlobal.uStateTotalCpy(0)!Tax_ID,V.Local.fVal1.Currency,V.Local.fVal2.Currency,V.local.sFieldVals2)
+			F.Intrinsic.Control.EndIf
+			V.Local.fVal1.Set(0)
+			V.Local.fVal2.Set(0)
+		F.Intrinsic.Control.EndIf
+
+		'If 1 or more Locality codes, print the following
+		F.Intrinsic.Control.If(V.Local.i,<>,0)
+			F.Intrinsic.String.Build("STATE:{0}",V.uGlobal.uDistinctState(V.Local.i)!State,V.Local.sText)
+		F.Intrinsic.Control.Else
+			V.Local.sText.Set("")
+			'Will be used in print sub so we know when we're printing the Company totals page.
+			V.Global.bCompanyTotal.Set(True)
+		F.Intrinsic.Control.EndIf
+		'Insert company totals description
+		F.Intrinsic.String.Split(V.Local.sFieldVals2,"*!*",V.Local.sFieldVals2)
+		V.Local.sFieldVals2(4).Set("**COMPANY TOTALS**")
+		V.Local.sFieldVals2(5).Set(V.Local.sText)
+		F.Intrinsic.String.Join(V.Local.sFieldVals2,"*!*",V.Local.sFieldVals2)
+		F.Intrinsic.Math.Add(V.Local.iC,1,V.Local.iC)
+
+		'F.Intrinsic.String.Build("{0}\Busint\PY_fw2.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+		F.Intrinsic.Control.If(V.Global.P_Forms,=,True)
+			F.Intrinsic.String.Build("{0}\Busint\PY_fw2_P.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+		F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("{0}\Busint\PY_fw2.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+		F.Intrinsic.Control.EndIf
+		V.Global.bGrandTotal.Set(True)
+
+		'F.Intrinsic.Math.Add(V.Local.iLocCount,1,V.Local.iLocCount)
+
+		F.Intrinsic.Control.CallSub(set_form_fields,"sFields",V.Local.sFields,"sStateLocal",V.Local.sFieldVals2,"iC",V.Local.iC)
+
+	F.Intrinsic.Control.Next(V.Local.i)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Get_Grand_Totals_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Get_Grand_Totals.End
+
+Program.Sub.State_Local_Values.Start
+F.Intrinsic.Control.SetErrorHandler("State_Local_Values_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+V.Local.sFieldVals.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.sFields.Declare(String)
+V.Local.sPDFDir.Declare(String)
+V.Local.sStateLocal.Declare(String)
+V.Local.sHeaderVals.Declare(String)
+V.Local.sAddtionalPage.Declare(String)
+V.Local.sFilter.Declare(String)
+V.Local.iRec.Declare(Long)
+V.Local.iRow.Declare(Long,0)
+V.Local.iC.Declare(Long)
+V.Local.iC2.Declare(Long)
+V.local.iWg.Declare(Long)
+
+'passed arguments and storing them into local variables
+V.Local.sFieldVals.Set(V.Args.FieldVals)
+V.Local.sFields.Set(V.Args.Fields)
+V.Local.sHeaderVals.Set(V.Args.HeaderVals)
+V.Local.iC.Set(V.Args.iC)
+V.uGlobal.uStateLocal.Redim(-1,-1)
+
+'F.Intrinsic.String.Build("{0}\Busint\PY_fw2.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+F.Intrinsic.Control.If(V.Global.P_Forms,=,True)
+		F.Intrinsic.String.Build("{0}\Busint\PY_fw2_P.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("{0}\Busint\PY_fw2.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+F.Intrinsic.Control.EndIf
+'Add State/Local params
+'The delimited line below represents the boxes 1 thru 14, they'll be left blank but the fields need to be account for.
+F.Intrinsic.String.Build("{0}*!**!**!**!**!**!**!**!**!**!**!**!**!**!**!**!**!**!**!**!**!**!*",V.Local.sHeaderVals,V.Local.sAddtionalPage)
+'filter throught he state/local taxes per employee
+F.Intrinsic.String.Build("Employee = '{0}'",V.DataTable.dtEmp(V.Local.iC).Employee!FieldValString,V.Local.sFilter)
+F.Data.DataView.SetFilter("dtStateLocal","dvStateLocal",V.Local.sFilter)
+F.Intrinsic.Control.If(V.DataView.dtStateLocal!dvStateLocal.RowCount,>,0)
+	'Loading state and local wages, withholding and local codes to udt.
+	F.Intrinsic.Control.For(V.Local.iC2,0,V.DataView.dtStateLocal!dvStateLocal.RowCount--,1)
+		'If control variable is greater than one, then this means that all two rows have been filled so we'll have to create an addtional page for the employee's W2.
+		F.Intrinsic.Control.If(V.Local.iC2,>,1)
+			'If we're already on the second row, then print this pdf
+			F.Intrinsic.Control.If(V.Local.iRow,=,0)
+				F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!*{7}",V.Local.sAddtionalPage,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_State!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Tax_ID!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Wages!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Withholding!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Wages!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Withholding!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).Local_Code!FieldValString,V.Local.sStateLocal)
+				F.Intrinsic.Math.Add(V.Local.iRow,1,V.Local.iRow)
+			F.Intrinsic.Control.Elseif(V.Local.iRow,=,1)
+				F.Intrinsic.Math.Sub(V.Local.iC2,1,V.Local.iWg)
+				'if current state and tax id is the same as previous iteration's state and tax id, don't print the State Wage/Withholding information
+				F.Intrinsic.Control.If(V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_State!FieldValString,=,V.DataView.dtStateLocal!dvStateLocal(V.local.iWg).St_State!FieldValString,"AND",V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Tax_ID!FieldValString,=,V.DataView.dtStateLocal!dvStateLocal(V.local.iWg).St_Tax_ID!FieldValString)
+					F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!*{7}*!*{8}",V.Local.sStateLocal,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_State!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Tax_ID!FieldValString,"","",V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Wages!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Withholding!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).Local_Code!FieldValString,V.Global.iYr,V.Local.sStateLocal)
+				F.Intrinsic.Control.Else
+					F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!*{7}*!*{8}",V.Local.sStateLocal,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_State!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Tax_ID!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Wages!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Withholding!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Wages!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Withholding!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).Local_Code!FieldValString,V.Global.iYr,V.Local.sStateLocal)
+				F.Intrinsic.Control.Endif
+				'F.Automation.PDF.Open("fW2",V.Local.sPDFDir)
+				'Calling print pdf sub
+				F.Intrinsic.Control.CallSub(set_form_fields,"sFields",V.Local.sFields,"sStateLocal",V.Local.sStateLocal,"iC",V.Local.iC)
+				'Resetting iRow var incase employee has more evne more records.
+				V.local.iRow.set(0)
+			F.Intrinsic.Control.Endif
+		F.Intrinsic.Control.Elseif(V.Local.iC2,=,1)
+			'If iC2 count = 1 that means both state/local rows have been populated and to print the PDF.
+			F.Intrinsic.Math.Sub(V.Local.iC2,1,V.Local.iWg)
+			'if current state and tax id is the same as previous iteration's state and tax id, don't print the State Wage/Withholding information
+			F.Intrinsic.Control.If(V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_State!FieldValString,=,V.DataView.dtStateLocal!dvStateLocal(V.local.iWg).St_State!FieldValString,"AND",V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Tax_ID!FieldValString,=,V.DataView.dtStateLocal!dvStateLocal(V.local.iWg).St_Tax_ID!FieldValString)
+				F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!*{7}*!*{8}",V.Local.sStateLocal,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_State!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Tax_ID!FieldValString,"","",V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Wages!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Withholding!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).Local_Code!FieldValString,V.Global.iYr,V.Local.sStateLocal)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!*{7}*!*{8}",V.Local.sStateLocal,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_State!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Tax_ID!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Wages!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Withholding!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Wages!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Withholding!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).Local_Code!FieldValString,V.Global.iYr,V.Local.sStateLocal)
+			F.Intrinsic.Control.Endif
+			'Calling print pdf sub
+			F.Intrinsic.Control.CallSub(set_form_fields,"sFields",V.Local.sFields,"sStateLocal",V.Local.sStateLocal,"iC",V.Local.iC)
+			'Resetting iRow since all rows for present sheet have now been used up. If another record is found, then a create another sheet.
+			V.Local.iRow.Set(0)
+		F.Intrinsic.Control.Elseif(V.Local.iC2,=,0)
+			F.Intrinsic.String.Build("{0}*!*{1}*!*{2}*!*{3}*!*{4}*!*{5}*!*{6}*!*{7}",V.Local.sFieldVals,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_State!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Tax_ID!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Wages!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).St_Withholding!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Wages!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).L_Withholding!FieldValString,V.DataView.dtStateLocal!dvStateLocal(V.local.iC2).Local_Code!FieldValString,V.Local.sStateLocal)
+			F.Intrinsic.Math.Add(V.Local.iRow,1,V.Local.iRow)
+		F.Intrinsic.Control.Endif
+	F.Intrinsic.Control.Next(V.Local.iC2)
+
+	'if only first row populated but not the second then print pdf.
+	F.Intrinsic.Control.If(V.DataView.dtStateLocal!dvStateLocal.RowCount--,=,0,"OR",V.Local.iRow,=,1)
+		F.Intrinsic.String.Build("{0}*!**!**!**!**!**!**!**!*{1}",V.Local.sStateLocal,V.Global.iYr,V.Local.sStateLocal)
+		'Calling print pdf sub
+		F.Intrinsic.Control.CallSub(set_form_fields,"sFields",V.Local.sFields,"sStateLocal",V.Local.sStateLocal,"iC",V.Local.iC)
+	F.Intrinsic.Control.Endif
+F.Intrinsic.Control.Else
+	'Else if nothing in federal/state, print pdf.
+	F.Intrinsic.String.Build("{0}*!**!**!**!**!**!**!**!**!**!**!**!**!**!**!*{1}",V.Local.sFieldVals,V.Global.iYr,V.Local.sStateLocal)
+	'Calling print pdf sub
+	F.Intrinsic.Control.CallSub(set_form_fields,"sFields",V.Local.sFields,"sStateLocal",V.Local.sStateLocal,"iC",V.Local.iC)
+F.Intrinsic.Control.Endif
+'F.ODBC.conx!rst.Close
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("State_Local_Values_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.State_Local_Values.End
+
+Program.Sub.set_form_fields.Start
+F.Intrinsic.Control.SetErrorHandler("set_form_fields_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'Prints the PDF.
+V.Local.sStateLocal.Declare(String)
+V.Local.sFields.Declare(String)
+V.local.sPDFDir.Declare(String)
+V.Local.iC.Declare(Long)
+V.Local.bRet.Declare(Boolean,False)
+V.Local.bCheck.Declare(Boolean,False)
+'Setting argument State and Local values to local variable
+V.Local.sStateLocal.Set(V.Args.sStateLocal)
+V.Local.sFields.Set(V.Args.sFields)
+V.Local.iC.Set(V.Args.iC)
+
+'Getting blank PDF to print to
+'F.Intrinsic.String.Build("{0}\Busint\PY_fw2.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+'Checking to see if temp file exist
+'F.Intrinsic.String.Build("{0}\fw2_Temp{1}.pdf",V.Global.LocalGSSTempDir,V.Global.iRec,V.Global.sTempDir)
+
+F.Intrinsic.Control.If(V.Global.P_Forms,=,True)
+	F.Intrinsic.String.Build("{0}\Busint\PY_fw2_P.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)	
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Build("{0}\Busint\PY_fw2.pdf",V.Caller.GlobalDir,V.Local.sPDFDir)
+F.Intrinsic.Control.EndIf
+
+'Checking to see if temp file exist
+F.Intrinsic.String.Build("{0}\fw2_Temp{1}.pdf",V.Global.LocalGSSTempDir,V.Global.iRec,V.Global.sTempDir)
+
+'Determine which copy to print
+F.Intrinsic.Control.SelectCase(V.Global.iCounter)
+	F.Intrinsic.Control.Case(0)
+		'If we're printing a Grand Totals, then don't put a specific copy title at the bottom of the pdf.
+		F.Intrinsic.Control.If(V.Global.bGrandTotal,<>,True)
+				F.Intrinsic.String.Build("{0}*!*Copy 1 - State*!*Copy 1 - State",V.Local.sStateLocal,V.Local.sStateLocal)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Build("{0}*!**!*",V.Local.sStateLocal,V.Local.sStateLocal)
+			V.Global.bGrandTotal.Set(True)
+			F.Intrinsic.Control.If(V.Global.bCompanyTotal,=,True)
+				'Setting up file path for company totals
+				F.Intrinsic.String.Build("{0}\fw2_TempCompanyTotal.pdf",V.Global.LocalGSSTempDir,V.Global.sGFQP)
+				'Setting fields and values to Pdf for company total
+				F.Data.DataTable.AddRow("dtForms","target_name",V.Global.sGFQP,"field_names",V.Local.sFields,"field_values",V.Local.sStateLocal)
+				'F.Automation.PDF.Close("fW2")
+			F.Intrinsic.Control.Endif
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Case(1)
+		F.Intrinsic.String.Build("{0}*!*Copy 2 - State*!*Copy 2 - State",V.Local.sStateLocal,V.Local.sStateLocal)
+	F.Intrinsic.Control.Case(2)
+		F.Intrinsic.String.Build("{0}*!*Copy B - Federal Filing*!*Copy B - Federal Filing",V.Local.sStateLocal,V.Local.sStateLocal)
+	F.Intrinsic.Control.Case(3)
+		F.Intrinsic.String.Build("{0}*!*Copy C - Employee Record*!*Copy C - Employee Record",V.Local.sStateLocal,V.Local.sStateLocal)
+	F.Intrinsic.Control.Case(4)
+		F.Intrinsic.String.Build("{0}*!*Copy D - Employer*!*Copy D - Employer",V.Local.sStateLocal,V.Local.sStateLocal)
+		V.Global.bEmployerCopy.Set(True)
+	F.Intrinsic.Control.Case(5)
+		F.Intrinsic.String.Build("{0}*!*Copy B - Federal Filing*!*Copy C - Employee Record",V.Local.sStateLocal,V.Local.sStateLocal)
+	F.Intrinsic.Control.Case(6)
+		F.Intrinsic.String.Build("{0}*!*Copy 1 - State*!*Copy 2 - State",V.Local.sStateLocal,V.Local.sStateLocal)
+	F.Intrinsic.Control.CaseElse
+		F.Intrinsic.String.Build("{0}*!**!*",V.Local.sStateLocal,V.Local.sStateLocal)
+F.Intrinsic.Control.EndSelect
+
+'Setting fields and values to Pdf.
+
+F.Intrinsic.Control.If(V.Global.bCompanyTotal,<>,True)
+	'F.Automation.PDF.setformfields("fW2",V.Global.sTempDir,V.Local.sFields,V.Local.sStateLocal,True)
+	F.Data.DataTable.AddRow("dtForms","target_name",V.Global.sTempDir,"field_names",V.Local.sFields,"field_values",V.Local.sStateLocal)
+	'F.Automation.PDF.Close("fW2")
+	'Adding one to the rec id to be used within the temp pdf names.
+	'keeping employer copies together so they show up at the end of the report along with the employer instructions (if selected from front end)
+	F.Intrinsic.Math.Add(V.Global.iRec,1,V.Global.iRec)
+	'Stringing together FQPs for merging into one pdf.
+	F.Intrinsic.Control.If(V.Global.iRec,=,1)
+		F.Intrinsic.Control.If(V.Global.bEmployerCopy,=,True)
+			F.Intrinsic.Control.If(V.Global.sEmployerFileMerge,=,"")
+				V.Global.sEmployerFileMerge.Set(V.Global.sTempDir)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("{0}*!*{1}",V.Global.sEmployerFileMerge,V.Global.sTempDir,V.Global.sEmployerFileMerge)
+			F.Intrinsic.Control.Endif
+			V.Global.bEmployerCopy.Set(False)
+		F.Intrinsic.Control.Else
+			V.Global.sFileMerge.Set(V.Global.sTempDir)
+		F.Intrinsic.Control.Endif
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Control.If(V.Global.bEmployerCopy,=,True)
+			F.Intrinsic.Control.If(V.Global.sEmployerFileMerge,=,"")
+				V.Global.sEmployerFileMerge.Set(V.Global.sTempDir)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("{0}*!*{1}",V.Global.sEmployerFileMerge,V.Global.sTempDir,V.Global.sEmployerFileMerge)
+			F.Intrinsic.Control.Endif
+			V.Global.bEmployerCopy.Set(False)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Control.If(V.Global.sFileMerge,=,"")
+				V.Global.sFileMerge.Set(V.Global.sTempDir)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("{0}*!*{1}",V.Global.sFileMerge,V.Global.sTempDir,V.Global.sFileMerge)
+			F.Intrinsic.Control.Endif
+		F.Intrinsic.Control.Endif
+	F.Intrinsic.Control.Endif
+F.Intrinsic.Control.Endif
+V.Global.bCompanyTotal.Set(False)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("set_form_fields_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.set_form_fields.End
+
+Program.Sub.Unload.Start
+F.Intrinsic.Control.SetErrorHandler("Unload_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'Ending Program
+F.ODBC.Connection!conx.Close
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Unload_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End
+
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Unload.End
+
+Program.Sub.chk1allcopies_click.Start
+F.Intrinsic.Control.SetErrorHandler("chk1allcopies_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'If all copies checked, go ahead and disable all the other check boxes, otherwise enable them.
+F.Intrinsic.Control.If(V.Screen.Form!chk1AllCopies.Value,=,1)
+	'checking controls
+	Gui.Form.chk1State1.Value(1)
+	Gui.Form.chk1State2.Value(1)
+	Gui.Form.chk1Federal.Value(1)
+	Gui.Form.chk1Employee.Value(1)
+	Gui.Form.chk1Employer.Value(1)
+	Gui.Form.chk1Filing.Value(1)
+	'disabling controls
+	Gui.Form.chk1State1.Enabled(False)
+	Gui.Form.chk1State2.Enabled(False)
+	Gui.Form.chk1Federal.Enabled(False)
+	Gui.Form.chk1Employee.Enabled(False)
+	Gui.Form.chk1Employer.Enabled(False)
+	Gui.Form.chk1Filing.Enabled(False)
+
+	'uncheck perforated forms controls.
+	Gui.Form.chkStates1and2.Value(0)
+	Gui.Form.chkFedEmp.Value(0)
+
+	'disabled perforated forms controls.
+	Gui.Form.chkStates1and2.Enabled(False)
+	Gui.Form.chkFedEmp.Enabled(False)
+
+F.Intrinsic.Control.Else
+	Gui.Form.chk1State1.Value(0)
+	Gui.Form.chk1State2.Value(0)
+	Gui.Form.chk1Federal.Value(0)
+	Gui.Form.chk1Employee.Value(0)
+	Gui.Form.chk1Employer.Value(0)
+	Gui.Form.chk1Filing.Value(0)
+	'disabling controls
+	Gui.Form.chk1State1.Enabled(True)
+	Gui.Form.chk1State2.Enabled(True)
+	Gui.Form.chk1Federal.Enabled(True)
+	Gui.Form.chk1Employee.Enabled(True)
+	Gui.Form.chk1Employer.Enabled(True)
+	Gui.Form.chk1Filing.Enabled(True)
+
+	'uncheck perforated forms.
+	Gui.Form.chkStates1and2.Enabled(True)
+	Gui.Form.chkFedEmp.Enabled(True)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("chk1allcopies_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.chk1allcopies_click.End
+
+Program.Sub.cmd1ok_click.Start
+F.Intrinsic.Control.SetErrorHandler("cmd1ok_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.iRet.Declare(Long)
+Gui.Form..Visible(False)
+
+F.Intrinsic.Math.Add(V.Screen.Form!chk1AllCopies.Value,V.Screen.Form!chk1State1.Value,V.Screen.Form!chk1State2.Value,V.Screen.Form!chk1Federal.Value,V.Screen.Form!chk1Filing.Value,V.Screen.Form!chk1Employee.Value,V.Screen.Form!chk1Employer.Value,V.Screen.Form!chkFedEmp.Value,V.Screen.Form!chkStates1and2.Value,V.Local.iRet)
+F.Intrinsic.Control.If(V.Local.iRet,=,0)
+	F.Intrinsic.Control.CallSub(Unload)
+F.Intrinsic.Control.Endif
+'Select location to save file
+F.Intrinsic.UI.ShowSaveFileDialog("fw2.pdf","*.pdf",V.Caller.GlobalDir,V.Global.sFileDirRet)
+F.Intrinsic.Control.If(V.Global.sFileDirRet,<>,"***CANCEL***")
+	'Loading recordset
+	F.Intrinsic.Control.CallSub(Load_rst)
+	'Writting records to PDF
+	F.Intrinsic.Control.CallSub("Get_Header")
+F.Intrinsic.Control.Endif
+
+'Ending program
+F.Intrinsic.Control.CallSub(Unload)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmd1ok_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_PY_W2_Preproc.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.cmd1ok_click.End
+
+Program.Sub.chkFedEmp_Click.Start
+F.Intrinsic.Control.CallSub(Disable_PrintOpt1_Controls)
+Program.Sub.chkFedEmp_Click.End
+
+Program.Sub.chkStates1and2_Click.Start
+F.Intrinsic.Control.CallSub(Disable_PrintOpt1_Controls)
+Program.Sub.chkStates1and2_Click.End
+
+Program.Sub.Disable_PrintOpt1_Controls.Start
+F.Intrinsic.Control.If(V.Screen.Form!chkFedEmp.Value,=,1,"OR",V.Screen.Form!chkStates1and2.Value,=,1)
+	Gui.Form.chk1State1.Value(0)
+	Gui.Form.chk1State2.Value(0)
+	Gui.Form.chk1Federal.Value(0)
+	Gui.Form.chk1Employee.Value(0)
+	Gui.Form.chk1Employer.Value(0)
+	Gui.Form.chk1Filing.Value(0)
+	Gui.Form.chk1AllCopies.Value(0)
+	'disabling controls
+	Gui.Form.chk1AllCopies.Enabled(False)
+	Gui.Form.chk1State1.Enabled(False)
+	Gui.Form.chk1State2.Enabled(False)
+	Gui.Form.chk1Federal.Enabled(False)
+	Gui.Form.chk1Employee.Enabled(False)
+	Gui.Form.chk1Employer.Enabled(False)
+	Gui.Form.chk1Filing.Enabled(False)
+F.Intrinsic.Control.Else
+	Gui.Form.chk1AllCopies.Enabled(True)
+	Gui.Form.chk1State1.Enabled(True)
+	Gui.Form.chk1State2.Enabled(True)
+	Gui.Form.chk1Federal.Enabled(True)
+	Gui.Form.chk1Employee.Enabled(True)
+	Gui.Form.chk1Employer.Enabled(True)
+	Gui.Form.chk1Filing.Enabled(True)
+F.Intrinsic.Control.EndIf
+Program.Sub.Disable_PrintOpt1_Controls.End
+
+Program.Sub.Disable_Perf_Controls.Start
+V.Local.i.Declare(Long)
+'If any of the top printing options are selected, then disable perforated form chceckboxes.
+F.Intrinsic.Math.Add(V.Screen.Form!chk1AllCopies.Value,V.Screen.Form!chk1State1.Value,V.Screen.Form!chk1State2.Value,V.Screen.Form!chk1Federal.Value,V.Screen.Form!chk1Employee.Value,V.Screen.Form!chk1Employer.Value,V.Screen.Form!chk1Filing.Value,V.Local.i)
+F.Intrinsic.Control.If(V.Local.i,>,0)
+	Gui.Form.chkFedEmp.Value(0)
+	Gui.Form.chkStates1and2.Value(0)
+	Gui.Form.chkFedEmp.Enabled(False)
+	Gui.Form.chkStates1and2.Enabled(False)
+F.Intrinsic.Control.Else
+	Gui.Form.chkFedEmp.Enabled(True)
+	Gui.Form.chkStates1and2.Enabled(True)
+F.Intrinsic.Control.EndIf
+Program.Sub.Disable_Perf_Controls.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$AGM$}$01/11/2016 4:12:10 PM$}$False
+${$3$}$0$}$$}$0$}$-1$}$$}$12:00:00 AM$}$'
+Program.Sub.Comments.End
+
+Program.Sub.ScreenSS.Start
+SS_Form1{{CAPTION::W-2 Printing Options
+SS_Form1.CTRL{{NAME::lbl1\\TYPE::1\\CAPTION::Select copies to print\\GROUP::-1\\BROWSER::0\\SIZE::3
+SS_Form1.CTRL{{NAME::chk1AllCopies\\TYPE::9\\CAPTION::All Copies\\TABSTOP::1\\GROUP::-1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::chk1State1\\TYPE::9\\CAPTION::State 1\\TABSTOP::2\\GROUP::-1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::chk1State2\\TYPE::9\\CAPTION::State 2\\TABSTOP::3\\GROUP::-1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::chk1Federal\\TYPE::9\\CAPTION::Federal\\TABSTOP::4\\GROUP::-1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::chk1Employee\\TYPE::9\\CAPTION::Employee\\TABSTOP::5\\GROUP::-1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::chk1Filing\\TYPE::9\\CAPTION::Employee Filing Instructions\\TABSTOP::6\\GROUP::-1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::chk1Employer\\TYPE::9\\CAPTION::Employer\\TABSTOP::7\\GROUP::-1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::cmd1Ok\\TYPE::5\\CAPTION::Ok\\TABSTOP::8\\GROUP::-1\\BROWSER::0\\INTL::708218\\SIZE::1
+
+Program.Sub.ScreenSS.End
+
