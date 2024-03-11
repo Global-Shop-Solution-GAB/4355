@@ -1,0 +1,163 @@
+Program.Sub.ScreenSU.Start
+Gui.F_Main..Create
+Gui.F_Main..Size(7500,1455)
+Gui.F_Main..MinX(0)
+Gui.F_Main..MinY(0)
+Gui.F_Main..Position(0,0)
+Gui.F_Main..BackColor(-2147483633)
+Gui.F_Main..MousePointer(0)
+Gui.F_Main..Event(UnLoad,F_Main_UnLoad)
+Gui.F_Main..Caption("W-2 Local Code Replacement")
+Gui.F_Main..Sizeable(False)
+Gui.F_Main.txtLocalCode.Create(TextBox,"",True,1050,300,0,195,405,True,0,"Arial",8,-2147483643,1)
+Gui.F_Main.txtLocalCode.Event(LostFocus,txtLocalCode_LostFocus)
+Gui.F_Main.txtDescription.Create(TextBox,"",True,3900,300,0,1965,405,True,0,"Arial",8,-2147483643,1)
+Gui.F_Main.txtDescription.MaxLength(8)
+Gui.F_Main.lbl1.Create(Label,"Replacement Description",True,1935,255,0,1950,180,True,0,"Arial",8,-2147483633,0)
+Gui.F_Main.lbl2.Create(Label,"Local Code",True,1035,255,0,180,180,True,0,"Arial",8,-2147483633,0)
+Gui.F_Main.btnSave.Create(Button)
+Gui.F_Main.btnSave.Size(1140,375)
+Gui.F_Main.btnSave.Position(5985,360)
+Gui.F_Main.btnSave.Caption("Save")
+Gui.F_Main.btnSave.Event(Click,btnSave_Click)
+Gui.F_Main.btnBrws.Create(Button)
+Gui.F_Main.btnBrws.Size(495,375)
+Gui.F_Main.btnBrws.Position(1335,375)
+Gui.F_Main.btnBrws.Caption("^")
+Gui.F_Main.btnBrws.Event(Click,btnBrws_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+Gui.F_Main..Show
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: PPT_W2_LocalCode_Replacement.g2c",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(F_main_unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.Main.End
+
+Program.Sub.F_Main_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+F.ODBC.Connection!conx.Close
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: PPT_W2_LocalCode_Replacement.g2c",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End
+
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.F_Main_UnLoad.End
+
+Program.Sub.btnSave_Click.Start
+F.Intrinsic.Control.SetErrorHandler("F_Main_UnLoad_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.Lc.Declare(String)
+V.Local.Rp.Declare(String)
+V.Local.Lc.Set(V.Screen.F_Main!txtLocalCode.Text)
+V.Local.Rp.Set(V.Screen.F_Main!txtDescription.Text)
+'Check if entered correctly
+F.Intrinsic.Control.If(V.Local.Lc.Trim,=,"","AND",V.Local.Rp,=,"")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Else
+	F.Intrinsic.Control.If(V.Local.Lc.Length,>,0,"OR",V.Local.Rp.Length,>,0)
+		F.Intrinsic.Control.If(V.Local.Lc.Length,=<,5,"AND",V.Local.Rp.Length,=<,30)
+			'Check if record exists, if not, add to pervasive.
+			F.Intrinsic.String.Build("Select Local_Code, Replacement From PPT_W2_LOCAL Where Local_Code = '{0}'",V.Screen.F_Main!txtLocalCode.Text,V.Local.sSQL)
+			F.ODBC.Connection!conx.OpenLocalRecordsetRW("rst",V.Local.sSQL)
+			F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,TRUE)
+				F.ODBC.conx!rst.AddNew
+				F.ODBC.conx!rst.Set!Local_Code(V.Local.Lc.Trim)
+				F.ODBC.conx!rst.Set!Replacement(V.Local.Rp.Trim)
+				F.ODBC.conx!rst.Update
+				F.Intrinsic.UI.Msgbox("Save was successful")
+			F.Intrinsic.Control.Else
+				F.ODBC.conx!rst.Set!Local_Code(V.Local.Lc.Trim)
+				F.ODBC.conx!rst.Set!Replacement(V.Local.Rp.Trim)
+				F.ODBC.conx!rst.Update
+			F.Intrinsic.Control.EndIf
+			F.ODBC.conx!rst.Close
+		F.Intrinsic.Control.Else
+			F.Intrinsic.UI.Msgbox("Characters entered exceed limit")
+			F.Intrinsic.Control.ExitSub
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("F_Main_UnLoad_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: PPT_W2_LocalCode_Replacement.g2c",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(f_main_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.btnSave_Click.End
+
+Program.Sub.txtLocalCode_LostFocus.Start
+'Search to see if it exists after tabbing out. If it does, then load description.
+
+Program.Sub.txtLocalCode_LostFocus.End
+
+Program.Sub.btnBrws_Click.Start
+F.Intrinsic.Control.SetErrorHandler("F_Main_UnLoad_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'Select Local_Code, Replacement From PPT_W2_LOCAL;
+V.Local.iW.Declare(Long)
+V.Local.sT.Declare(String)
+V.Local.sRet.Declare(String)
+F.Intrinsic.String.Split("Local Code*!*Replacement","*!*",V.Local.sT)
+F.Intrinsic.String.Split("1000*!*3000","*!*",V.Local.iW)
+F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+F.Intrinsic.UI.Browser("Select Local Code Replacement","conx","Select Local_Code, Replacement From PPT_W2_LOCAL",V.Local.sT,V.Local.iW,5000,9000,V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+	Gui.F_Main.txtLocalCode.Text(V.Local.sRet(0))
+	Gui.F_Main.txtDescription.Text(V.Local.sRet(1).Trim)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("F_Main_UnLoad_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: PPT_W2_LocalCode_Replacement.g2c",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(f_main_unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.btnBrws_Click.End
+
+Program.Sub.Comments.Start
+${$0$}$PPT_W2_LocalCode_Replacement.g2u$}$AGM$}$01/04/2017 4:32:37 PM$}$False
+Program.Sub.Comments.End
+
